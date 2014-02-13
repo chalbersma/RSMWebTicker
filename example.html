@@ -2,5 +2,54 @@
 <head>
 </head>
 <body>
-<p> This is a test Page for the widgit </p>
+    <p> This is a test Page for the widget </p>
+    <div id="tickbox">
+    <script src="jquery-2.1.0.js" > </script>
+    <script src="http://api.redstarmining.com/ticker.js"></script>
+    <script type="text/javascript" >
+    console.log("Running ticker()");
+    var rsmstring = ticker();
+    console.log("Ticker Finished");
+    console.log("Ticker: " + rsmstring);
+    console.log("Normalizing");
+    var rsmnormalized = rsmstring.replace(/\'/g,"\"");
+    console.log("Normalized Finished");
+    console.log("Normalized: " + rsmnormalized);
+    var rsmjson = $.parseJSON(rsmnormalized);
+    console.log(rsmjson);
+    rsmjson["diff"] = 0;
+    rsmjson["above"] = true;
+    rsmjson["diffchar"] = " " ;
+    rsmjson["average"] = ((parseFloat(rsmjson["low"]) + parseFloat(rsmjson["high"] )) / 2.0 );
+    console.log("Average : " + rsmjson["average"]);
+    
+    if ( parseFloat(rsmjson["last"]) >= parseFloat(rsmjson["average"]) ){
+        // Last price is more or equal than 24 HR Low
+        rsmjson["diff"] = parseFloat(rsmjson["last"]) - parseFloat(rsmjson["average"]);
+        console.log("Difference");
+        console.log(rsmjson["diff"]);
+    } else { 
+        // Last price is less than 24 HR Low
+        rsmjson["above"] = false;
+        rsmjson["diff"] = parseFloat(rsmjson["average"]) - parseFloat(rsmjson["last"]);
+    }
+    
+    if (rsmjson["above"] == true){
+        rsmjson["difficon"]  = "up.png";
+        rsmjson["diffchar"] = "+";
+    } else {
+        rsmjson["diffchar"] = "-";
+        rsmjson["difficon"] = "down.png";
+    }
+    console.log(rsmjson["diffchar"]);
+    
+    document.writeln("<ul>");
+    document.writeln("<li id='price'> Price: <img src='" + rsmjson["difficon"] + "' /> " + rsmjson["last"] + " XBT \(" + rsmjson["diffchar"] + rsmjson["diff"].toFixed(8) + "\)</li>");
+    document.writeln("<li id='average'> 24 HR U Avg: " + rsmjson["average"] + " XBT</li>");
+    document.writeln("<li id='high'> 24 HR High: " + rsmjson["high"] + " XBT</li>");
+    document.writeln("<li id='low'> 24 HR Low: " + rsmjson["low"] + " XBT</li>");
+    document.writeln("<li id='vol'> 24 HR Vol: " + rsmjson["vol"] + " Shares </li>");
+    document.writeln("</ul>");
+    </script>
+    </div>
 </body>
