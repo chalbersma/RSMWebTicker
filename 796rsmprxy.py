@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 # Includes Here
 import json
 import urllib.request
@@ -8,34 +7,71 @@ import logging
 import sys
 
 def main() :
-    url = "http://api.796.com/v3/stock/ticker.html?type=rsm"
+    # Ticker URL
+    tickurl = "http://api.796.com/v3/stock/ticker.html?type=rsm"
     
-    request = urllib.request.Request(url)
-    response = urllib.request.urlopen(request)
-    xjson = json.loads((response.read().decode('utf-8')))
+    # Market Trades URL
+    tradeurl = "http://api.796.com/v3/stock/trades.html?type=rsm"
     
-    print (xjson)
+    ## Grab info For Ticker
+    tickrequest = urllib.request.Request(tickurl)
+    tickresponse = urllib.request.urlopen(tickrequest)
+    tickxjson = json.loads((traderesponse.read().decode('utf-8')))
     
-    proxyfile = "/var/api/ticker.js"
+    ## Grab Info For Trades
+    traderequest = urllib.request.Request(tradeurl)
+    tradesponse = urllib.request.urlopen(traderequest)
+    tradexjson = json.loads((traderesponse.read().decode('utf-8')))
     
-    beginning_of_function = '''
+    ## Creat String with JS Files
+    tickproxyfile = "/var/api/ticker.js"
+    tradeproxyfile = "/var/api/trades.js"
+    
+    ## Create static ticker Info
+    tickbegin = '''
         function ticker(){
             var tickerstring = "'''
     
-    end_of_function = '''
+    tickend = '''
             
             return tickerstring;
             }
             '''
+            
+            
+    ## Create Static Trade Info
+    tradebegin = '''
+        function trades(){
+            var tradesstring = "'''
     
+    tradeend = '''
+            
+            return tradesstring;
+            }
+            '''
     
-    total_string = beginning_of_function + str(xjson['ticker']) + "\"" + end_of_function;
+            
+    ## Ticker and Trade
+    ticker_string = tickbegin + str(tickxjson['ticker']) + "\"" + tradeend;
+    trades_string = tradebegin + str(tradexjson[0]) + "\"" + tradeend;
+    
+    ## Log Ticker & Trade
+    print ("Last Run")
     print (total_string)
-    myfile = open(proxyfile, 'w')
+    print (trades_string)
     
-    myfile.write(total_string)
-    myfile.close()
+    ## Write Ticker File
+    tickfile = open(tickproxyfile, 'w')
+    tickfile.write(ticker_string)
+    tickfile.close()
     
+    ## Write Trades File
+    tradefile = open(tradeproxyfile, 'w')
+    tradefile.write(trades_string)
+    tradefile.close()
+    
+    ## Log Writing
+    print ("Wrote Files")
     
 main()
     
