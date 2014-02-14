@@ -16,11 +16,11 @@ def main() :
     ## Grab info For Ticker
     tickrequest = urllib.request.Request(tickurl)
     tickresponse = urllib.request.urlopen(tickrequest)
-    tickxjson = json.loads((traderesponse.read().decode('utf-8')))
+    tickxjson = json.loads((tickresponse.read().decode('utf-8')))
     
     ## Grab Info For Trades
     traderequest = urllib.request.Request(tradeurl)
-    tradesponse = urllib.request.urlopen(traderequest)
+    traderesponse = urllib.request.urlopen(traderequest)
     tradexjson = json.loads((traderesponse.read().decode('utf-8')))
     
     ## Creat String with JS Files
@@ -52,12 +52,17 @@ def main() :
     
             
     ## Ticker and Trade
-    ticker_string = tickbegin + str(tickxjson['ticker']) + "\"" + tradeend;
-    trades_string = tradebegin + str(tradexjson[0]) + "\"" + tradeend;
+    ticker_string = tickbegin + str(tickxjson['ticker']) + "\"" + tickend;
+    trades_string = tradebegin + str(tradexjson) + "\"" + tradeend;
     
+    ## Replace ' with " to meet JSON Lint Requirements
+    ticker_string = ticker_string.replace("\'", "\\\"");
+    trades_string = trades_string.replace("\'", "\\\"");
+    
+   
     ## Log Ticker & Trade
     print ("Last Run")
-    print (total_string)
+    print (ticker_string)
     print (trades_string)
     
     ## Write Ticker File
