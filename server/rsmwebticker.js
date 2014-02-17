@@ -85,26 +85,27 @@ function main(){
 
   // Based on above / Below Boolean I'm setting the correct string for the icon and for the change character.
   if (rsmtickerjson["above"] == true){
-      rsmtickerjson["difficon"]  = "up.png";
+      rsmtickerjson["difficon"]  = "http://api.redstarmining.com/up.png";
       rsmtickerjson["diffchar"] = "+";
   } else {
       rsmtickerjson["diffchar"] = "-";
-      rsmtickerjson["difficon"] = "down.png";
+      rsmtickerjson["difficon"] = "http://api.redstarmining.com/down.png";
   }
   
   /* Write Out Unorderd List with all the Bits and Pieces */
+  document.writeln("<img src='http://api.redstarmining.com/rsm-thumbd.png' />");
   document.writeln("<ul id='tickerlist'>");
   // Bitcoin Price with 
   //                                                      Icon Source for Diff Bits
   //                                                                                      Last Price
   //                                                                                                                  Difference with Designated Char
-  document.writeln("<li id='price'> Price: <img src='" + rsmtickerjson["difficon"] + "' /> " + rsmtickerjson["last"] + " XBT \(" + rsmtickerjson["diffchar"] + rsmtickerjson["diff"].toFixed(8) + "\)</li>");
+  document.writeln("<li id='price'><img src='" + rsmtickerjson["difficon"] + "' /> " + rsmtickerjson["last"] + " \u0E3F \(" + rsmtickerjson["diffchar"] + rsmtickerjson["diff"].toFixed(8) + "\)</li>");
   // Bitcoin Unwieghted average
-  document.writeln("<li id='average'> 24 HR W. Avg: " + rsmtickerjson["average"] + " XBT</li>");
+  document.writeln("<li id='average'> 24 HR W. Avg: " + rsmtickerjson["average"] + " \u0E3F</li>");
   // 24 High in Bitcoin
-  document.writeln("<li id='high'> 24 HR High: " + rsmtickerjson["high"] + " XBT</li>");
+  document.writeln("<li id='high'> 24 HR High: " + rsmtickerjson["high"] + " \u0E3F</li>");
   // 24 Hour Low in Bitcoin
-  document.writeln("<li id='low'> 24 HR Low: " + rsmtickerjson["low"] + " XBT</li>");
+  document.writeln("<li id='low'> 24 HR Low: " + rsmtickerjson["low"] + " \u0E3F</li>");
   // 24 Hour Volume in Shares
   document.writeln("<li id='vol'> 24 HR Vol: " + rsmtickerjson["vol"] + " Shares </li>");
   // End Unordered List
@@ -118,7 +119,7 @@ function drawChart() {
 
 	var rsmtrades = trades();
 	var rsmtrades = $.parseJSON(rsmtrades);
-	sevendaytrades = converttodate(rsmtrades, 9);
+	sevendaytrades = converttodate(rsmtrades, 7);
 	dataarray = [["Date","Price"]]; // In form of [ 'DATE' , 'Last Price' ]
 	console.log(sevendaytrades);
 	
@@ -134,10 +135,11 @@ function drawChart() {
 
 	var options = {
 	  'title': 'Recent RSM Price',
-	  'width': 400
 	};
 
 	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
+	
+	
 }
 
