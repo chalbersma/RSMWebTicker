@@ -1,4 +1,4 @@
-function converttodate(rsmtrades){
+function converttodate(rsmtrades, DAYS){
   // 60 mins * 60 secs * 1000 ms * 24 hours
   var ONE_DAY = 60 * 60 * 1000 * 24;
   // Today
@@ -9,7 +9,7 @@ function converttodate(rsmtrades){
   for ( i = 0; i < rsmtrades.length; i++){
     // find date of current object
     var dateofobj = new Date(parseFloat(rsmtrades[i]["date"]) * 1000);
-    if ( dateofobj >= (TODAY - ONE_DAY)){
+    if ( dateofobj >= (TODAY - (ONE_DAY * DAYS))){
       // Current object/transaction is less than 24 hours old
       last24hourtrades.push(rsmtrades[i]);
     } else {
@@ -57,7 +57,7 @@ function main(){
   var rsmtrades = $.parseJSON(rsmtrades);
   
   // Grab the trades in the last 24 Hours
-  lasttrades = converttodate(rsmtrades);
+  lasttrades = converttodate(rsmtrades, 1);
   
   // Weighted Average by Volume
   rsmtickerjson["average"] = getweightedavg(lasttrades, rsmtickerjson["last"]);
@@ -110,9 +110,34 @@ function main(){
   // End Unordered List
   document.writeln("</ul>");
 
-  chart();
 };
 
-function chart(){
 
+function drawChart() {
+	
+
+	var rsmtrades = trades();
+	var rsmtrades = $.parseJSON(rsmtrades);
+	sevendaytrades = converttodate(rsmtrades, 9);
+	dataarray = [["Date","Price"]]; // In form of [ 'DATE' , 'Last Price' ]
+	console.log(sevendaytrades);
+	
+	for(var i=0; i < sevendaytrades.length; i++){
+		var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
+		var priceofobj = parseFloat(sevendaytrades[i]["price"]);
+		dataarray[i+1] = [dateofobj, priceofobj];
+	}
+	
+	console.log("Data Array: " + dataarray);
+	
+	var data = google.visualization.arrayToDataTable(dataarray);
+
+	var options = {
+	  'title': 'Recent RSM Price',
+	  'width': 400
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
 }
+

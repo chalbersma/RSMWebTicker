@@ -4,14 +4,18 @@
 <body>
     <p> This is a test Page for the widget </p>
     <div id="tickbox">
-    <script src="jquery-2.1.0.js" > </script>
-    <script src="http://api.redstarmining.com/ticker.js"></script>
-    <script src="http://api.redstarmining.com/trades.js"></script>
-    <script src="rsmwebticker.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="jquery-2.1.0.js" > 						</script>
+    <script type="text/javascript" src="http://api.redstarmining.com/ticker.js"></script>
+    <script type="text/javascript" src="http://api.redstarmining.com/trades.js"></script>
+    <script type="text/javascript" src="rsmwebticker.js">						</script>
+	<script type="text/javascript" src="https://www.google.com/jsapi">			</script>
     <script type="text/javascript" >
     main();
+	// Load Google Charts API
+	google.load("visualization", "1", {packages:["corechart"]});
+	// Draw Chart after page Loads
+	google.setOnLoadCallback(drawChart);
     </script>
-    
+    <div id="chart_div"></div>
     </div>
 </body>
