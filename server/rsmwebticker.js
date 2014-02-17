@@ -120,13 +120,14 @@ function drawChart() {
 	var rsmtrades = trades();
 	var rsmtrades = $.parseJSON(rsmtrades);
 	sevendaytrades = converttodate(rsmtrades, 7);
-	dataarray = [["Date","Price"]]; // In form of [ 'DATE' , 'Last Price' ]
+	dataarray = [["Date","Price","Volume"]]; // In form of [ 'DATE' , 'Last Price' ]
 	console.log(sevendaytrades);
 	
 	for(var i=0; i < sevendaytrades.length; i++){
 		var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
 		var priceofobj = parseFloat(sevendaytrades[i]["price"]);
-		dataarray[i+1] = [dateofobj, priceofobj];
+		var volumeofobj = parseFloat(sevendaytrades[i]["amount"]);
+		dataarray[i+1] = [dateofobj, priceofobj, volumeofobj];
 	}
 	
 	console.log("Data Array: " + dataarray);
@@ -135,6 +136,8 @@ function drawChart() {
 
 	var options = {
 	  'title': 'Recent RSM Price',
+	  'vAxes': [0 {},1 {}],
+	  'series': { 1: {type: "bars"}}
 	};
 
 	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
