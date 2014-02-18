@@ -101,7 +101,7 @@ function main(){
   //                                                                                                                  Difference with Designated Char
   document.writeln("<li id='price'><img src='" + rsmtickerjson["difficon"] + "' /> " + rsmtickerjson["last"] + " \u0E3F \(" + rsmtickerjson["diffchar"] + rsmtickerjson["diff"].toFixed(8) + "\)</li>");
   // Bitcoin Unwieghted average
-  document.writeln("<li id='average'> 24 HR W. Avg: " + rsmtickerjson["average"] + " \u0E3F</li>");
+  document.writeln("<li id='average'> 24 HR W. Avg: " + rsmtickerjson["average"].toFixed(4) + " \u0E3F</li>");
   // 24 High in Bitcoin
   document.writeln("<li id='high'> 24 HR High: " + rsmtickerjson["high"] + " \u0E3F</li>");
   // 24 Hour Low in Bitcoin
@@ -110,7 +110,14 @@ function main(){
   document.writeln("<li id='vol'> 24 HR Vol: " + rsmtickerjson["vol"] + " Shares </li>");
   // End Unordered List
   document.writeln("</ul>");
-
+  
+  
+  // Do Chart Stuff
+  // Load Google Charts API
+  google.load("visualization", "1", {packages:["corechart"]});	
+  // Draw Chart after page Loads
+  google.setOnLoadCallback(drawChart);
+  
 };
 
 
@@ -120,9 +127,8 @@ function drawChart() {
 	var rsmtrades = trades();
 	var rsmtrades = $.parseJSON(rsmtrades);
 	sevendaytrades = converttodate(rsmtrades, 7);
-	dataarray = [["Date","Price","Volume"]]; // In form of [ 'DATE' , 'Last Price' ]
-	console.log(sevendaytrades);
-	
+	dataarray = [["Date","Price","Volume"]]; // In form of [ 'DATE' , 'Last Price', 'Volume' ]
+		
 	for(var i=0; i < sevendaytrades.length; i++){
 		var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
 		var priceofobj = parseFloat(sevendaytrades[i]["price"]);
@@ -130,17 +136,30 @@ function drawChart() {
 		dataarray[i+1] = [dateofobj, priceofobj, volumeofobj];
 	}
 	
-	console.log("Data Array: " + dataarray);
-	
+
 	var data = google.visualization.arrayToDataTable(dataarray);
 
 	var options = {
-	  'title': 'Recent RSM Price',
-	  'vAxes': [0 {},1 {}],
-	  'series': { 1: {type: "bars"}}
+	  title: 'Recent RSM Price',
+	  series: {
+				0:{
+					targetAxisIndex: 0,
+				},
+				1:{
+					targetAxisIndex: 1,
+				}
+			},
+		vAxes:{
+				0:{
+					title:"Price",
+				},
+				1:{
+					title:"Volume",
+				}
+			}
 	};
 
-	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
 	
 	
