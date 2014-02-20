@@ -18,6 +18,46 @@ function converttodate(rsmtrades, DAYS){
     }
   }
   return last24hourtrades;
+};
+
+function getDailyBreakdown(trades, defaultvalue){
+  /* Data I want to display:
+   * DayAverage: Weighted Average of Transactions
+   * DayVolume: Number of Shares Traded
+   * DayMax: Max Price That Day
+   * DayMin: Min Price That Day
+   * DayPositiveVar: Average W amount above mean
+   * DayNegativeVar: Average W amount below mean 
+   * DayString: YY-MM-DD For Easy Display
+   * 
+   * */
+   var tradedays = [];
+   //console.log(trades);
+   for (var x in trades){
+	   var currentdate = new Date(parseFloat(trades[x]["date"] * 1000));
+	   var D = currentdate.getDate();
+	   var M = currentdate.getMonth() + 1; // JS Dates are 0-11
+	   var Y = currentdate.getFullYear();
+	   var currentdatestring = (D + "-" + M + "-" + Y);
+	   //console.log(currentdatestring);
+	   // Check to see if Value exists
+	   if (currentdatestring in tradedays){
+		   // Exists add Transaction
+		   tradedays[currentdatestring]["Trans"].push(trades[x]);
+	   } else {
+		   // Doesn't Exist Add Bit's and Initialize
+		   tradedays[currentdatestring] = [];
+		   tradedays[currentdatestring]["DayLow"] = 0;
+		   tradedays[currentdatestring]["DayNegVar"] = 0;
+		   tradedays[currentdatestring]["DayPosVar"] = 0;
+		   tradedays[currentdatestring]["DayHigh"] = 0;
+		   tradedays[currentdatestring]["DayAvg"] = 0;
+		   tradedays[currentdatestring]["Trans"] = [];
+		   // Add my transaction to Trans
+		   tradedays[currentdatestring]["Trans"].push(trades[x]);
+	   }
+   }
+   console.log(tradedays);
 }
 
 function getweightedavg(recenttrades, defaultvalue){
@@ -123,9 +163,15 @@ function main(){
 
 function drawChart() {
 	
+	
 
 	var rsmtrades = trades();
 	var rsmtrades = $.parseJSON(rsmtrades);
+	
+	var tickerinfo = ticker();
+	
+	var dailybreakdown = getDailyBreakdown(rsmtrades, tickerinfo["last"]);
+	
 	sevendaytrades = converttodate(rsmtrades, 7);
 	dataarray = [["Date","Price","Volume"]]; // In form of [ 'DATE' , 'Last Price', 'Volume' ]
 		
