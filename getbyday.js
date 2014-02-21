@@ -7,7 +7,7 @@ function getbyday(sevendaytrades, currentticker){
   // Today
   var TODAY = new Date();
   // Initialize trades by days
-	tradesbyday = [['DaysAgo', 'Low', 'NegVar', 'PosVar', 'High', 'Mean', 'Volume']]
+	tradesbyday = [['DaysAgo', 'Varience', 'NegVar', 'PosVar', 'High', 'Mean', 'Volume']]
 	// Initialize Array
 	for (var x = 0; x < 7; x++){
 		// Push Default

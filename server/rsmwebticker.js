@@ -164,6 +164,11 @@ function drawChart() {
 					title: "Volume"
 				}
 			},
+	  hAxis: {
+				0: {
+					title: "Date"
+				}
+			},
 	  isStacked: true,
 	  aggregationTarget: 'category'
 	};
