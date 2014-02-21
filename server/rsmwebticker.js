@@ -1,3 +1,4 @@
+var dailybreakdown = [];
 function converttodate(rsmtrades, DAYS){
   // 60 mins * 60 secs * 1000 ms * 24 hours
   var ONE_DAY = 60 * 60 * 1000 * 24;
@@ -12,6 +13,7 @@ function converttodate(rsmtrades, DAYS){
     if ( dateofobj >= (TODAY - (ONE_DAY * DAYS))){
       // Current object/transaction is less than 24 hours old
       last24hourtrades.push(rsmtrades[i]);
+	  console.log(dateofobj);
     } else {
       // Current object/transaction is older than 24 hours old do nothing
       continue;
@@ -20,45 +22,6 @@ function converttodate(rsmtrades, DAYS){
   return last24hourtrades;
 };
 
-function getDailyBreakdown(trades, defaultvalue){
-  /* Data I want to display:
-   * DayAverage: Weighted Average of Transactions
-   * DayVolume: Number of Shares Traded
-   * DayMax: Max Price That Day
-   * DayMin: Min Price That Day
-   * DayPositiveVar: Average W amount above mean
-   * DayNegativeVar: Average W amount below mean 
-   * DayString: YY-MM-DD For Easy Display
-   * 
-   * */
-   var tradedays = [];
-   //console.log(trades);
-   for (var x in trades){
-	   var currentdate = new Date(parseFloat(trades[x]["date"] * 1000));
-	   var D = currentdate.getDate();
-	   var M = currentdate.getMonth() + 1; // JS Dates are 0-11
-	   var Y = currentdate.getFullYear();
-	   var currentdatestring = (D + "-" + M + "-" + Y);
-	   //console.log(currentdatestring);
-	   // Check to see if Value exists
-	   if (currentdatestring in tradedays){
-		   // Exists add Transaction
-		   tradedays[currentdatestring]["Trans"].push(trades[x]);
-	   } else {
-		   // Doesn't Exist Add Bit's and Initialize
-		   tradedays[currentdatestring] = [];
-		   tradedays[currentdatestring]["DayLow"] = 0;
-		   tradedays[currentdatestring]["DayNegVar"] = 0;
-		   tradedays[currentdatestring]["DayPosVar"] = 0;
-		   tradedays[currentdatestring]["DayHigh"] = 0;
-		   tradedays[currentdatestring]["DayAvg"] = 0;
-		   tradedays[currentdatestring]["Trans"] = [];
-		   // Add my transaction to Trans
-		   tradedays[currentdatestring]["Trans"].push(trades[x]);
-	   }
-   }
-   console.log(tradedays);
-}
 
 function getweightedavg(recenttrades, defaultvalue){
   // Set Variables
@@ -151,6 +114,8 @@ function main(){
   // End Unordered List
   document.writeln("</ul>");
   
+  dailybreakdown = getbyday(converttodate(rsmtrades, 7), rsmtickerjson);
+  console.log(dailybreakdown);
   
   // Do Chart Stuff
   // Load Google Charts API
@@ -164,13 +129,9 @@ function main(){
 function drawChart() {
 	
 	
-
+	/*
 	var rsmtrades = trades();
 	var rsmtrades = $.parseJSON(rsmtrades);
-	
-	var tickerinfo = ticker();
-	
-	var dailybreakdown = getDailyBreakdown(rsmtrades, tickerinfo["last"]);
 	
 	sevendaytrades = converttodate(rsmtrades, 7);
 	dataarray = [["Date","Price","Volume"]]; // In form of [ 'DATE' , 'Last Price', 'Volume' ]
@@ -182,30 +143,32 @@ function drawChart() {
 		dataarray[i+1] = [dateofobj, priceofobj, volumeofobj];
 	}
 	
+	*/
+	
+	console.log(dailybreakdown);
+	
+	
 
-	var data = google.visualization.arrayToDataTable(dataarray);
+	var data = google.visualization.arrayToDataTable(dailybreakdown);
 
 	var options = {
 	  title: 'Recent RSM Price',
-	  series: {
-				0:{
-					targetAxisIndex: 0,
+	  series: { 1: {type: "line"},
+				2: {type: "bars", targetAxisIndex: 1}
+				}, 
+	  vAxes: { 
+				0: { 
+					title: "Price"
 				},
-				1:{
-					targetAxisIndex: 1,
+				1: {
+					title: "Volume"
 				}
 			},
-		vAxes:{
-				0:{
-					title:"Price",
-				},
-				1:{
-					title:"Volume",
-				}
-			}
+	  isStacked: true,
+	  aggregationTarget: 'category'
 	};
 
-	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 	chart.draw(data, options);
 	
 	
