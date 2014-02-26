@@ -20,6 +20,7 @@ function getbyday(sevendaytrades, currentticker){
 		var first = true;
 		var thisrunwmean = 0;
 		var thisprices = [];
+                var thisvolbtc = 0.0;
 		// Cycle through all trades
 		//console.log(sevendaytrades);
 		for (var i = 0; i < sevendaytrades.length; i++){
@@ -44,9 +45,11 @@ function getbyday(sevendaytrades, currentticker){
 						thishigh = parseFloat(parseFloat(sevendaytrades[i]["price"]));
 					}
 				} // End of Checking Highs and Lows
- 				// Add Volume
- 				thisvol += parseFloat(sevendaytrades[i]["amount"])
- 				//console.log("This Vol");
+ 				// Add Volume in Bitcoin
+                                // So it's volume times price But need actual vol for other stuff
+ 				thisvol += parseFloat(sevendaytrades[i]["amount"]) ;
+                                thisvolbtc += thisvol * parseFloat(sevendaytrades[i]["price"])
+                                //console.log("This Vol");
  				//console.log(thisvol);
  				// Add Running mean
  				thisrunwmean += parseFloat(sevendaytrades[i]["amount"]) * parseFloat(sevendaytrades[i]["price"]);
@@ -93,7 +96,7 @@ function getbyday(sevendaytrades, currentticker){
 				thisneg = thismean - (negativerun / negativevorun);
 			}
 		}
-		tradesbyday[x+1] = [ x , thislow, thisneg, thispos, thishigh , thismean, thisvol];
+		tradesbyday[x+1] = [ x , thislow, thisneg, thispos, thishigh , thismean, thisvolbtc];
 	} // Finish Populating by days
 	//console.log(tradesbyday);
 	// Translate Days Ago to Strings

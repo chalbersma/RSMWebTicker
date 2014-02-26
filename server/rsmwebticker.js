@@ -238,15 +238,16 @@ function drawChart() {
 	
 	*/
 	
-	//console.log(dailybreakdown);
 	
 	
+	console.log(dailybreakdown);
 
 	var data = google.visualization.arrayToDataTable(dailybreakdown);
 
 	var options = {
 	  title: 'Recent RSM Price',
-	  series: { 1: {type: "line"},
+	  series: { 
+        1: {type: "line"},
 				2: {type: "bars", targetAxisIndex: 1}
 				}, 
 	  vAxes: { 
@@ -262,8 +263,22 @@ function drawChart() {
 					title: "Date"
 				}
 			},
+    candlestick: {
+      faillingColor: {
+        fill : "red",
+        stroke : "red"
+      },
+      risingColor : {
+        fill : "green",
+        stroke: "green"
+      }
+    },
+    animation : {
+      easing : "in"
+    },
 	  isStacked: true,
 	  aggregationTarget: 'category'
+
 	};
 
 	var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
