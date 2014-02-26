@@ -13,7 +13,7 @@ function converttodate(rsmtrades, DAYS){
     if ( dateofobj >= (TODAY - (ONE_DAY * DAYS))){
       // Current object/transaction is less than 24 hours old
       last24hourtrades.push(rsmtrades[i]);
-	  console.log(dateofobj);
+	  //console.log(dateofobj);
     } else {
       // Current object/transaction is older than 24 hours old do nothing
       continue;
@@ -115,16 +115,109 @@ function main(){
   document.writeln("</ul>");
   
   dailybreakdown = getbyday(converttodate(rsmtrades, 7), rsmtickerjson);
-  console.log(dailybreakdown);
+  //console.log(dailybreakdown);
   
   // Do Chart Stuff
   // Load Google Charts API
   google.load("visualization", "1", {packages:["corechart"]});	
   // Draw Chart after page Loads
   google.setOnLoadCallback(drawChart);
+  google.setOnLoadCallback(drawChart2);
   
 };
 
+function drawChart2() {
+  console.log("Chart2");
+  var rsmticker = ticker();
+  var rsmtickerjson = $.parseJSON(rsmticker);
+  var lastprice = rsmtickerjson["last"];
+  
+  var rsmdepth = depth();
+  console.log(rsmdepth);
+  var rsmdepthjson = $.parseJSON(rsmdepth);
+  console.log(rsmdepthjson);
+  var biddepth = rsmdepthjson["bids"];
+  var askdepth = rsmdepthjson["asks"];
+  var biddata = [];
+  
+  console.log("Entry");
+  var DIFF = (parseFloat(lastprice)/2);
+  var STEP = 0.0001
+  for(var x = (parseFloat(lastprice) - DIFF); x < (parseFloat(lastprice) + DIFF);  x = x + STEP ){
+    console.log("Inside");
+    askatprice = 0;
+    askinprice = 0;
+    bidatprice = 0;
+    bidinprice = 0;
+    // Cycle through asks
+    for (var a = 0; a < askdepth.length ; a++){
+      // If asking price is less than or equal two current value plus price add to askatprice
+      if ( parseFloat(askdepth[a][0]) <= x ){
+        askatprice += Number(askdepth[a][1]);
+        if (parseFloat(askdepth[a][0]) >= (x - STEP)){
+          askinprice += Number(askdepth[a][1]);
+        }
+      }
+    } // Done Cycleing through asks
+
+    
+    // Cycle through bids
+    for (var b = 0; b < biddepth.length ; b++){
+      // If bid is more than or equal to current value minus price add to bidatprice
+      if (parseFloat(biddepth[b][0]) >= x ){
+        bidatprice += Number(biddepth[b][1]);
+        if ( parseFloat(biddepth[b][0]) <= (x + STEP )){
+          bidinprice += Number(biddepth[b][1]);
+        }
+      }
+    }// Done cycleing through bids
+    console.log([parseFloat(x.toFixed(6)), bidatprice, askatprice, bidinprice, askinprice]);
+    biddata.push([parseFloat(x.toFixed(6)), bidatprice, askatprice, bidinprice, askinprice]);
+  }
+  
+  
+  biddata.unshift(["Price", "Bids", "Asks", "Bids@" , "Asks@"]);
+  console.log(biddata);
+
+  
+  
+  
+  
+  var data = google.visualization.arrayToDataTable(biddata);
+  var options = {
+    title: 'Active Bids',
+    series: { 0: { 
+                    type: "line",
+                    targetAxisIndex: 0
+                  },
+              1: { 
+                    type: "line",
+                    targetAxisIndex: 0
+                  },
+              2: {
+                    type: "bars",
+                    targetAxisIndex: 1
+                  },
+              3: {
+                    type: "bars",
+                    targetAxisIndex: 1
+                  }
+            },
+    vAxes: { 
+              0: { 
+                    title: "Cumulative Volume"
+                  },
+              1: {
+                    title: "Order Volume"
+                  }
+            },
+    isStacked: true,
+	  aggregationTarget: 'category'
+  };
+
+	var chart = new google.visualization.AreaChart(document.getElementById('chart2_div'));
+	chart.draw(data, options);
+}
 
 function drawChart() {
 	
@@ -145,7 +238,7 @@ function drawChart() {
 	
 	*/
 	
-	console.log(dailybreakdown);
+	//console.log(dailybreakdown);
 	
 	
 

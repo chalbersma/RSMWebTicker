@@ -1,7 +1,7 @@
 /* Get Trades and Convert to Day By Day */
 
 function getbyday(sevendaytrades, currentticker){
-	console.log(sevendaytrades);
+	//console.log(sevendaytrades);
 	// 60 mins * 60 secs * 1000 ms * 24 hours
   var ONE_DAY = 60 * 60 * 1000 * 24;
   // Today
@@ -21,7 +21,7 @@ function getbyday(sevendaytrades, currentticker){
 		var thisrunwmean = 0;
 		var thisprices = [];
 		// Cycle through all trades
-		console.log(sevendaytrades);
+		//console.log(sevendaytrades);
 		for (var i = 0; i < sevendaytrades.length; i++){
 			// See the date of sevenday trade I'm watching
 			var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
@@ -30,7 +30,7 @@ function getbyday(sevendaytrades, currentticker){
 				// Check Highs & Lows
 				if (first == true){
 					// First Transaction
-					console.log("First Run");
+					//console.log("First Run");
 					thislow = parseFloat(sevendaytrades[i]["price"]);
 					thishigh = parseFloat(sevendaytrades[i]["price"]);
 					first = false;
@@ -46,8 +46,8 @@ function getbyday(sevendaytrades, currentticker){
 				} // End of Checking Highs and Lows
  				// Add Volume
  				thisvol += parseFloat(sevendaytrades[i]["amount"])
- 				console.log("This Vol");
- 				console.log(thisvol);
+ 				//console.log("This Vol");
+ 				//console.log(thisvol);
  				// Add Running mean
  				thisrunwmean += parseFloat(sevendaytrades[i]["amount"]) * parseFloat(sevendaytrades[i]["price"]);
  				// Add Prices for Parsing Later
@@ -56,20 +56,20 @@ function getbyday(sevendaytrades, currentticker){
 		} // Finish checking all transactions in sevendaytrades
 		if(thisprices.length == 0){
 			// There are no Transaction and no Transaction data
-			console.log("No Transactions for " + x  + " days back");
+			//console.log("No Transactions for " + x  + " days back");
 		} else {
 		// There Are Transactions
 		// Calculate Mean
 			thismean = thisrunwmean / thisvol;
-			console.log("The mean: "); 
-			console.log(thismean);
+			//console.log("The mean: "); 
+			//console.log(thismean);
 			positiverun = 0;
 			postivevorun = 0
 			negativerun = 0;
 			negativevorun = 0;
 			// Calculate PosVar & NegVar
 			for (var j = 0; j < thisprices.length; j++){
-				console.log(thisprices);
+				//console.log(thisprices);
 				if ( thisprices[j][0] < thismean ){
 					// Negative Run
 					negativerun += (thismean - thisprices[j][0])* thisprices[j][1];
@@ -95,7 +95,7 @@ function getbyday(sevendaytrades, currentticker){
 		}
 		tradesbyday[x+1] = [ x , thislow, thisneg, thispos, thishigh , thismean, thisvol];
 	} // Finish Populating by days
-	console.log(tradesbyday);
+	//console.log(tradesbyday);
 	// Translate Days Ago to Strings
 	for (var k = 1; k < tradesbyday.length; k++){
 		thisdaydate = new Date(TODAY - (ONE_DAY * tradesbyday[k][0]));
@@ -103,7 +103,7 @@ function getbyday(sevendaytrades, currentticker){
 		M = thisdaydate.getMonth() + 1;
 		Y = thisdaydate.getFullYear();
 		thisdaystring = M + "/" + D;
-		console.log(thisdaystring);
+		//console.log(thisdaystring);
 		tradesbyday[k][0] = thisdaystring;
 	}
 	return tradesbyday;
