@@ -52,17 +52,16 @@ function getbyday(sevendaytrades, currentticker){
 		} // Finish checking all transactions in sevendaytrades
 		if(thisprices.length == 0){
 			// There are no Transaction and no Transaction data
-			//console.log("No Transactions for " + x  + " days back");
+			console.log("No Transactions for " + x  + " days back");
 		} else {
 		// There Are Transactions
 		// Calculate Mean
 			thismean = thisrunwmean / thisvol;
 		}
-		tradesbyday.push = [ x , thislow, thisneg, thispos, thishigh , thismean, thisvolbtc];
-                // Reverse Sort Array By X (7 -> 0)
-                tradesbyday.reverse()
+                console.log([ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc]);
+		tradesbyday[x+1] = [ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc];
 	} // Finish Populating by days
-	//console.log(tradesbyday);
+	console.log(tradesbyday);
 	// Translate Days Ago to Strings
 	for (var k = 1; k < tradesbyday.length; k++){
 		thisdaydate = new Date(TODAY - (ONE_DAY * tradesbyday[k][0]));
