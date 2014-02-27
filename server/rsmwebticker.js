@@ -95,6 +95,18 @@ function main(){
       rsmtickerjson["difficon"] = "http://api.redstarmining.com/down.png";
   }
   
+  // Vars For Insertion
+  // Price
+  var strprice = String(parseFloat(rsmtickerjson["last"]) / 0.001);
+  var strdiffe = String(rsmtickerjson["diffchar"]) + (parseFloat(rsmtickerjson["diff"]) / 0.001)
+  var straverg = String(parseFloat(rsmtickerjson["average"] / 0.001));
+  var strhighx = String(parseFloat(rsmtickerjson["high"]) / 0.001)
+  var strlowxx = String(parseFloat(rsmtickerjson["low"]) / 0.001)
+  var strvolum = String(parseFloat(rsmtickerjson["vol"]))
+  
+  console.log("Price: " + strprice + "( " + strdiffe + ")");
+  
+  
   /* Write Out Unorderd List with all the Bits and Pieces */
   document.writeln("<img src='http://api.redstarmining.com/rsm-thumbd.png' />");
   document.writeln("<ul id='tickerlist'>");
@@ -102,15 +114,15 @@ function main(){
   //                                                      Icon Source for Diff Bits
   //                                                                                      Last Price
   //                                                                                                                  Difference with Designated Char
-  document.writeln("<li id='price'><img src='" + rsmtickerjson["difficon"] + "' /> " + rsmtickerjson["last"] + " \u0E3F \(" + rsmtickerjson["diffchar"] + rsmtickerjson["diff"].toFixed(8) + "\)</li>");
+  document.writeln("<li id='price'>Price: <img src='" + rsmtickerjson["difficon"] + "' /> " + strprice + " m\u0E3F \(" + strdiffe + "\)</li>");
   // Bitcoin Unwieghted average
-  document.writeln("<li id='average'> 24 HR W. Avg: " + rsmtickerjson["average"].toFixed(4) + " \u0E3F</li>");
+  document.writeln("<li id='average'> 24 HR W. Avg: " + straverg + " m\u0E3F</li>");
   // 24 High in Bitcoin
-  document.writeln("<li id='high'> 24 HR High: " + rsmtickerjson["high"] + " \u0E3F</li>");
+  document.writeln("<li id='high'> 24 HR High: " + strhighx + " m\u0E3F</li>");
   // 24 Hour Low in Bitcoin
-  document.writeln("<li id='low'> 24 HR Low: " + rsmtickerjson["low"] + " \u0E3F</li>");
+  document.writeln("<li id='low'> 24 HR Low: " + strlowxx + " m\u0E3F</li>");
   // 24 Hour Volume in Shares
-  document.writeln("<li id='vol'> 24 HR Vol: " + rsmtickerjson["vol"] + " Shares </li>");
+  document.writeln("<li id='vol'> 24 HR Vol: " + strvolum + " Shares </li>");
   // End Unordered List
   document.writeln("</ul>");
   
@@ -130,7 +142,7 @@ function drawChart2() {
   //console.log("Chart2");
   var rsmticker = ticker();
   var rsmtickerjson = $.parseJSON(rsmticker);
-  var lastprice = rsmtickerjson["last"];
+  var lastprice = (rsmtickerjson["last"] / 0.001);
   
   var rsmdepth = depth();
   //console.log(rsmdepth);
@@ -142,7 +154,7 @@ function drawChart2() {
   
   //console.log("Entry");
   var DIFF = (parseFloat(lastprice)/2);
-  var STEP = 0.0001
+  var STEP = 0.0001 / 0.001
   for(var x = (parseFloat(lastprice) - DIFF); x < (parseFloat(lastprice) + DIFF);  x = x + STEP ){
     //console.log("Inside");
     askatprice = 0;
@@ -152,9 +164,9 @@ function drawChart2() {
     // Cycle through asks
     for (var a = 0; a < askdepth.length ; a++){
       // If asking price is less than or equal two current value plus price add to askatprice
-      if ( parseFloat(askdepth[a][0]) <= x ){
+      if ( (parseFloat(askdepth[a][0]) / 0.001) <= x ){
         askatprice += Number(askdepth[a][1]);
-        if (parseFloat(askdepth[a][0]) >= (x - STEP)){
+        if ( ( parseFloat(askdepth[a][0])/ 0.001) >= (x - STEP)){
           askinprice += Number(askdepth[a][1]);
         }
       }
@@ -164,9 +176,9 @@ function drawChart2() {
     // Cycle through bids
     for (var b = 0; b < biddepth.length ; b++){
       // If bid is more than or equal to current value minus price add to bidatprice
-      if (parseFloat(biddepth[b][0]) >= x ){
+      if ( (parseFloat(biddepth[b][0]) / 0.001) >= x ){
         bidatprice += Number(biddepth[b][1]);
-        if ( parseFloat(biddepth[b][0]) <= (x + STEP )){
+        if ( (parseFloat(biddepth[b][0]) / 0.001) <= (x + STEP )){
           bidinprice += Number(biddepth[b][1]);
         }
       }
@@ -205,10 +217,10 @@ function drawChart2() {
             },
     vAxes: { 
               0: { 
-                    title: "Cumulative Volume"
+                    title: "Aggregate Volume (Shares)"
                   },
               1: {
-                    title: "Order Volume"
+                    title: "Interval Volume (Shares)"
                   }
             },
     isStacked: true,
@@ -257,10 +269,10 @@ function drawChart() {
 				}, 
 	  vAxes: { 
 				0: { 
-					title: "Price"
+					title: "Price (mBTC)"
 				},
 				1: {
-					title: "Volume mBTC"
+					title: "Volume (mBTC)"
 				}
 			},
 	  hAxis: {

@@ -27,7 +27,7 @@ function getbyday(sevendaytrades, currentticker){
 		for (var i = 0; i < sevendaytrades.length; i++){
 			// See the date of sevenday trade I'm watching cycling through
 			var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
-                        CyclePrice = parseFloat(sevendaytrades[i]["price"]);
+                        CyclePrice = parseFloat(sevendaytrades[i]["price"]) / 0.001;
                         CycleAmount = parseFloat(sevendaytrades[i]["amount"]);
 			// if Date is in the current trades by day
 			if ( dateofobj >= (TODAY - (ONE_DAY * (x+1))) && (dateofobj <= (TODAY - (ONE_DAY * x)))){
@@ -49,7 +49,7 @@ function getbyday(sevendaytrades, currentticker){
                                 thislast = CyclePrice
                                 // Add Vol in Shares and BTC
  				thisvol += CycleAmount
-                                thisvolbtc += CycleAmount * (CyclePrice / 0.001)
+                                thisvolbtc += CycleAmount * CyclePrice
  				// Add Running mean
  				thisrunwmean += CycleAmount * CyclePrice
  				// Add Prices for Parsing Later
