@@ -176,7 +176,7 @@ function drawChart2() {
   }
   
   
-  biddata.unshift(["Price", "Bids", "Asks", "Bids@" , "Asks@"]);
+  biddata.unshift(["Price", "Agg. Bids", "Agg. Asks", "Bids@" , "Asks@"]);
   //console.log(biddata);
 
   
@@ -212,7 +212,9 @@ function drawChart2() {
                   }
             },
     isStacked: true,
-	  aggregationTarget: 'category'
+	  aggregationTarget: 'category',
+    height : 300,
+    colors : [ "Green", "Red", "#66A366", "#FF4D4D" ]
   };
 
 	var chart = new google.visualization.AreaChart(document.getElementById('chart2_div'));
@@ -258,7 +260,7 @@ function drawChart() {
 					title: "Price"
 				},
 				1: {
-					title: "Volume"
+					title: "Volume mBTC"
 				}
 			},
 	  hAxis: {
@@ -280,7 +282,7 @@ function drawChart() {
       easing : "in"
     },
 	  isStacked: true,
-    height: 500,
+    height: 300,
 	  aggregationTarget: 'series',
     colors : [ "Blue", "Black", "Grey" ]
 

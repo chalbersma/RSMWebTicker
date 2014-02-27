@@ -28,24 +28,28 @@ function getbyday(sevendaytrades, currentticker){
 			// See the date of sevenday trade I'm watching cycling through
 			var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
                         CyclePrice = parseFloat(sevendaytrades[i]["price"]);
-                        CycleAmount = parseFloat(sevendaytrades[i]["price"]);
+                        CycleAmount = parseFloat(sevendaytrades[i]["amount"]);
 			// if Date is in the current trades by day
 			if ( dateofobj >= (TODAY - (ONE_DAY * (x+1))) && (dateofobj <= (TODAY - (ONE_DAY * x)))){
                                 if (thisfirsttrans){
                                         // Set First and Low
                                         thisfirst = CyclePrice;
-                                        thislow = CycleAmount;
+                                        thislow = CyclePrice;
                                         thisfirsttrans = false;
                                 }
                                 if (CyclePrice > thishigh){
                                         // Set High
                                         thishigh = CyclePrice;
                                 }
+                                if (CyclePrice < thislow){
+                                        // Set Low
+                                        thislow = CyclePrice;
+                                }
                                 // This is the last one (Unless a newer transaction is found
                                 thislast = CyclePrice
                                 // Add Vol in Shares and BTC
  				thisvol += CycleAmount
-                                thisvolbtc += CycleAmount * CyclePrice
+                                thisvolbtc += CycleAmount * (CyclePrice / 0.001)
  				// Add Running mean
  				thisrunwmean += CycleAmount * CyclePrice
  				// Add Prices for Parsing Later
@@ -60,6 +64,8 @@ function getbyday(sevendaytrades, currentticker){
 		// Calculate Mean
 			thismean = thisrunwmean / thisvol;
 		}
+                console.log("Transactions for this day");
+                console.log(thisprices);
                 console.log([ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc]);
 		tradesbyday[x+1] = [ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc];
 	} // Finish Populating by days
