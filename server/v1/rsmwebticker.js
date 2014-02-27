@@ -114,7 +114,7 @@ function main(){
   //                                                      Icon Source for Diff Bits
   //                                                                                      Last Price
   //                                                                                                                  Difference with Designated Char
-  document.writeln("<li id='price'>Price: <img src='v1/" + rsmtickerjson["difficon"] + "' /> " + strprice + " m\u0E3F \(" + strdiffe + "\)</li>");
+  document.writeln("<li id='price'>Price: <img src='" + rsmtickerjson["difficon"] + "' /> " + strprice + " m\u0E3F \(" + strdiffe + "\)</li>");
   // Bitcoin Unwieghted average
   document.writeln("<li id='average'> 24 HR W. Avg: " + straverg + " m\u0E3F</li>");
   // 24 High in Bitcoin
