@@ -32,9 +32,9 @@ def main() :
     depthxjson = json.loads((depthresponse.read().decode('utf-8')))
     
     ## Creat String with JS Files
-    tickproxyfile = "/var/api/ticker.js"
-    tradeproxyfile = "/var/api/trades.js"
-    depthproxyfile = "/var/api/depth.js"
+    tickproxyfile = "/var/api/v1/ticker.js"
+    tradeproxyfile = "/var/api/v1/trades.js"
+    depthproxyfile = "/var/api/v1/depth.js"
     
     ## Create static ticker Info
     tickbegin = '''

@@ -108,13 +108,13 @@ function main(){
   
   
   /* Write Out Unorderd List with all the Bits and Pieces */
-  document.writeln("<img src='http://api.redstarmining.com/rsm-thumbd.png' />");
+  document.writeln("<img src='http://api.redstarmining.com/v1/rsm-thumbd.png' />");
   document.writeln("<ul id='tickerlist'>");
   // Bitcoin Price with 
   //                                                      Icon Source for Diff Bits
   //                                                                                      Last Price
   //                                                                                                                  Difference with Designated Char
-  document.writeln("<li id='price'>Price: <img src='" + rsmtickerjson["difficon"] + "' /> " + strprice + " m\u0E3F \(" + strdiffe + "\)</li>");
+  document.writeln("<li id='price'>Price: <img src='v1/" + rsmtickerjson["difficon"] + "' /> " + strprice + " m\u0E3F \(" + strdiffe + "\)</li>");
   // Bitcoin Unwieghted average
   document.writeln("<li id='average'> 24 HR W. Avg: " + straverg + " m\u0E3F</li>");
   // 24 High in Bitcoin
