@@ -127,24 +127,24 @@ function main(){
 };
 
 function drawChart2() {
-  console.log("Chart2");
+  //console.log("Chart2");
   var rsmticker = ticker();
   var rsmtickerjson = $.parseJSON(rsmticker);
   var lastprice = rsmtickerjson["last"];
   
   var rsmdepth = depth();
-  console.log(rsmdepth);
+  //console.log(rsmdepth);
   var rsmdepthjson = $.parseJSON(rsmdepth);
-  console.log(rsmdepthjson);
+  //console.log(rsmdepthjson);
   var biddepth = rsmdepthjson["bids"];
   var askdepth = rsmdepthjson["asks"];
   var biddata = [];
   
-  console.log("Entry");
+  //console.log("Entry");
   var DIFF = (parseFloat(lastprice)/2);
   var STEP = 0.0001
   for(var x = (parseFloat(lastprice) - DIFF); x < (parseFloat(lastprice) + DIFF);  x = x + STEP ){
-    console.log("Inside");
+    //console.log("Inside");
     askatprice = 0;
     askinprice = 0;
     bidatprice = 0;
@@ -171,13 +171,13 @@ function drawChart2() {
         }
       }
     }// Done cycleing through bids
-    console.log([parseFloat(x.toFixed(6)), bidatprice, askatprice, bidinprice, askinprice]);
+    //console.log([parseFloat(x.toFixed(6)), bidatprice, askatprice, bidinprice, askinprice]);
     biddata.push([parseFloat(x.toFixed(6)), bidatprice, askatprice, bidinprice, askinprice]);
   }
   
   
   biddata.unshift(["Price", "Bids", "Asks", "Bids@" , "Asks@"]);
-  console.log(biddata);
+  //console.log(biddata);
 
   
   
@@ -239,7 +239,7 @@ function drawChart() {
 	*/
 	
 	
-	
+	console.log("Chart 1");
 	console.log(dailybreakdown);
 
 	var data = google.visualization.arrayToDataTable(dailybreakdown);
@@ -248,7 +248,10 @@ function drawChart() {
 	  title: 'Recent RSM Price',
 	  series: { 
         1: {type: "line"},
-				2: {type: "bars", targetAxisIndex: 1}
+				2: {
+          type: "bars",
+          targetAxisIndex: 1
+          }
 				}, 
 	  vAxes: { 
 				0: { 
@@ -264,20 +267,22 @@ function drawChart() {
 				}
 			},
     candlestick: {
-      faillingColor: {
+      fallingColor: {
         fill : "red",
-        stroke : "red"
+        stroke : "blue"
       },
       risingColor : {
         fill : "green",
-        stroke: "green"
+        stroke: "blue"
       }
     },
     animation : {
       easing : "in"
     },
 	  isStacked: true,
-	  aggregationTarget: 'category'
+    height: 500,
+	  aggregationTarget: 'series',
+    colors : [ "Blue", "Black", "Grey" ]
 
 	};
 

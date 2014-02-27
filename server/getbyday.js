@@ -3,15 +3,15 @@
 /* Get Trades and Convert to Day By Day */
 
 function getbyday(sevendaytrades, currentticker){
-	//console.log(sevendaytrades);
-	// 60 mins * 60 secs * 1000 ms * 24 hours
+  console.log("Get By Day");
   var ONE_DAY = 60 * 60 * 1000 * 24;
   // Today
   var TODAY = new Date();
   // Initialize trades by days
 	tradesbyday = [['DaysAgo', 'Low', 'First', 'Last', 'High', 'Mean', 'Volume']]
 	// Initialize Array
-	for (var x = 7; x < 7; x--){
+	for (var x = 0; x < 7; x++){
+                console.log("Running through Days on day " + String(x) );
 		// Push Default
                 thislow = 0.0;
                 thisfirst = 0.0;
@@ -20,27 +20,29 @@ function getbyday(sevendaytrades, currentticker){
                 thismean = 0.0;
                 thisvol = 0.0;
                 thisvolbtc = 0.0;
-                thisrunmean = 0.0;
-                thisfirst = true;
+                thisrunwmean = 0.0;
+                thisfirsttrans = true;
                 thisprices = []
 		// Cycle through all trades
 		for (var i = 0; i < sevendaytrades.length; i++){
 			// See the date of sevenday trade I'm watching cycling through
 			var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
-                        CyclePrice = parsefloat(sevendaytrades[i]["price"]);
-                        CycleAmount = parsefloat(sevendaytrades[i]["price"]);
+                        CyclePrice = parseFloat(sevendaytrades[i]["price"]);
+                        CycleAmount = parseFloat(sevendaytrades[i]["price"]);
 			// if Date is in the current trades by day
 			if ( dateofobj >= (TODAY - (ONE_DAY * (x+1))) && (dateofobj <= (TODAY - (ONE_DAY * x)))){
-                                if (thisfirst){
+                                if (thisfirsttrans){
                                         // Set First and Low
                                         thisfirst = CyclePrice;
                                         thislow = CycleAmount;
-                                        thisfirst = false;
+                                        thisfirsttrans = false;
                                 }
-                                if (thishigh < CyclePrice){
+                                if (CyclePrice > thishigh){
                                         // Set High
                                         thishigh = CyclePrice;
                                 }
+                                // This is the last one (Unless a newer transaction is found
+                                thislast = CyclePrice
                                 // Add Vol in Shares and BTC
  				thisvol += CycleAmount
                                 thisvolbtc += CycleAmount * CyclePrice
@@ -61,9 +63,11 @@ function getbyday(sevendaytrades, currentticker){
                 console.log([ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc]);
 		tradesbyday[x+1] = [ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc];
 	} // Finish Populating by days
+        console.log("Transactions By Day Populated:");
 	console.log(tradesbyday);
 	// Translate Days Ago to Strings
 	for (var k = 1; k < tradesbyday.length; k++){
+                console.log(tradesbyday[k]);
 		thisdaydate = new Date(TODAY - (ONE_DAY * tradesbyday[k][0]));
 		D = thisdaydate.getDate();
 		M = thisdaydate.getMonth() + 1;
