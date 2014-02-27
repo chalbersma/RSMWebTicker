@@ -265,6 +265,10 @@ function drawChart() {
 				2: {
           type: "bars",
           targetAxisIndex: 1
+          },
+        3: {
+          type: "bars",
+          targetAxisIndex: 1
           }
 				}, 
 	  vAxes: { 
@@ -296,7 +300,7 @@ function drawChart() {
 	  isStacked: true,
     height: 300,
 	  aggregationTarget: 'series',
-    colors : [ "Blue", "Black", "Grey" ]
+    colors : [ "Blue", "Black", "#66A366", "#FF4D4D" ]
 
 	};
 

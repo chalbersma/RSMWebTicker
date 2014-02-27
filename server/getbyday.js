@@ -8,7 +8,7 @@ function getbyday(sevendaytrades, currentticker){
   // Today
   var TODAY = new Date();
   // Initialize trades by days
-	tradesbyday = [['DaysAgo', 'Low', 'First', 'Last', 'High', 'Mean', 'Volume']]
+	tradesbyday = [['DaysAgo', 'Low', 'First', 'Last', 'High', 'Mean', 'Buy Volume' , 'Sell Volume']]
 	// Initialize Array
 	for (var x = 0; x < 7; x++){
                 console.log("Running through Days on day " + String(x) );
@@ -19,6 +19,8 @@ function getbyday(sevendaytrades, currentticker){
                 thishigh = 0.0;
                 thismean = 0.0;
                 thisvol = 0.0;
+                thisvolbuy = 0.0;
+                thisvolsell = 0.0;
                 thisvolbtc = 0.0;
                 thisrunwmean = 0.0;
                 thisfirsttrans = true;
@@ -29,6 +31,8 @@ function getbyday(sevendaytrades, currentticker){
 			var dateofobj = new Date(parseFloat(sevendaytrades[i]["date"]) * 1000);
                         CyclePrice = parseFloat(sevendaytrades[i]["price"]) / 0.001;
                         CycleAmount = parseFloat(sevendaytrades[i]["amount"]);
+                        CycleType = String(sevendaytrades[i]["type"]);
+                        console.log(CycleType);
 			// if Date is in the current trades by day
 			if ( dateofobj >= (TODAY - (ONE_DAY * (x+1))) && (dateofobj <= (TODAY - (ONE_DAY * x)))){
                                 if (thisfirsttrans){
@@ -50,6 +54,13 @@ function getbyday(sevendaytrades, currentticker){
                                 // Add Vol in Shares and BTC
  				thisvol += CycleAmount
                                 thisvolbtc += CycleAmount * CyclePrice
+                                if (CycleType == "buy") {
+                                        // if it was a "buy"
+                                        thisvolbuy += CycleAmount * CyclePrice;
+                                } else {
+                                        // it was a "sell"
+                                        thisvolsell += CycleAmount * CyclePrice;
+                                }
  				// Add Running mean
  				thisrunwmean += CycleAmount * CyclePrice
  				// Add Prices for Parsing Later
@@ -67,7 +78,7 @@ function getbyday(sevendaytrades, currentticker){
                 console.log("Transactions for this day");
                 console.log(thisprices);
                 console.log([ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc]);
-		tradesbyday[x+1] = [ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbtc];
+		tradesbyday[x+1] = [ x , thislow, thisfirst, thislast, thishigh , thismean, thisvolbuy, thisvolsell];
 	} // Finish Populating by days
         console.log("Transactions By Day Populated:");
 	console.log(tradesbyday);
