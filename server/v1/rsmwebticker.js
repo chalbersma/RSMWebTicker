@@ -88,11 +88,11 @@ function main(){
 
   // Based on above / Below Boolean I'm setting the correct string for the icon and for the change character.
   if (rsmtickerjson["above"] == true){
-      rsmtickerjson["difficon"]  = "http://api.redstarmining.com/up.png";
+      rsmtickerjson["difficon"]  = "http://api.redstarmining.com/v1/up.png";
       rsmtickerjson["diffchar"] = "+";
   } else {
       rsmtickerjson["diffchar"] = "-";
-      rsmtickerjson["difficon"] = "http://api.redstarmining.com/down.png";
+      rsmtickerjson["difficon"] = "http://api.redstarmining.com/v1/down.png";
   }
   
   // Vars For Insertion
