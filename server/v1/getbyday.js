@@ -70,6 +70,7 @@ function getbyday(sevendaytrades, currentticker){
 		if(thisprices.length == 0){
 			// There are no Transaction and no Transaction data
 			console.log("No Transactions for " + x  + " days back");
+                        // Was going to populate with some sort of fake data but in reality we don't want n fake data.
 		} else {
 		// There Are Transactions
 		// Calculate Mean

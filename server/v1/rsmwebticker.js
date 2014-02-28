@@ -97,11 +97,11 @@ function main(){
   
   // Vars For Insertion
   // Price
-  var strprice = String(parseFloat(rsmtickerjson["last"]) / 0.001);
-  var strdiffe = String(rsmtickerjson["diffchar"]) + (parseFloat(rsmtickerjson["diff"]) / 0.001)
-  var straverg = String(parseFloat(rsmtickerjson["average"] / 0.001));
-  var strhighx = String(parseFloat(rsmtickerjson["high"]) / 0.001)
-  var strlowxx = String(parseFloat(rsmtickerjson["low"]) / 0.001)
+  var strprice = String((parseFloat(rsmtickerjson["last"]) / 0.001).toFixed(5));
+  var strdiffe = String(rsmtickerjson["diffchar"]) + String((parseFloat(rsmtickerjson["diff"]) / 0.001).toFixed(5));
+  var straverg = String((parseFloat(rsmtickerjson["average"] / 0.001)).toFixed(5));
+  var strhighx = String((parseFloat(rsmtickerjson["high"]) / 0.001).toFixed(5));
+  var strlowxx = String((parseFloat(rsmtickerjson["low"]) / 0.001).toFixed(5));
   var strvolum = String(parseFloat(rsmtickerjson["vol"]))
   
   console.log("Price: " + strprice + "( " + strdiffe + ")");
