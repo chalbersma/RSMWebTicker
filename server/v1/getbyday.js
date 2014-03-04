@@ -37,7 +37,7 @@ function getbyday(sevendaytrades, currentticker){
 			if ( dateofobj >= (TODAY - (ONE_DAY * (x+1))) && (dateofobj <= (TODAY - (ONE_DAY * x)))){
                                 if (thisfirsttrans){
                                         // Set First and Low
-                                        thisfirst = CyclePrice;
+                                        thislast = CyclePrice;
                                         thislow = CyclePrice;
                                         thisfirsttrans = false;
                                 }
@@ -50,7 +50,7 @@ function getbyday(sevendaytrades, currentticker){
                                         thislow = CyclePrice;
                                 }
                                 // This is the last one (Unless a newer transaction is found
-                                thislast = CyclePrice
+                                thisfirst = CyclePrice
                                 // Add Vol in Shares and BTC
  				thisvol += CycleAmount
                                 thisvolbtc += CycleAmount * CyclePrice
@@ -72,7 +72,7 @@ function getbyday(sevendaytrades, currentticker){
 			console.log("No Transactions for " + x  + " days back");
                         if ( x == 0 ) {
                                 // Get the latest mean
-                                thismean = parseFloat(currentticker["last"]);
+                                thismean = parseFloat(currentticker["last"]) / 0.001 ;
                         } else {
                                 // Get the last processes days mean
                                 console.log("Seeting Mean to: "+tradesbyday[x+1-1][5] + " Because x is " + x);
