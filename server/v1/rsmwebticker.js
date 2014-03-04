@@ -161,12 +161,13 @@ function drawChart2() {
     askinprice = 0;
     bidatprice = 0;
     bidinprice = 0;
+    console.log(x.toFixed(3))
     // Cycle through asks
     for (var a = 0; a < askdepth.length ; a++){
       // If asking price is less than or equal two current value plus price add to askatprice
       if ( (parseFloat(askdepth[a][0]) / 0.001) <= x ){
         askatprice += Number(askdepth[a][1]);
-        if ( ( parseFloat(askdepth[a][0])/ 0.001) >= (x - STEP)){
+        if ( ( parseFloat(askdepth[a][0])/ 0.001) > (x - STEP)){
           askinprice += Number(askdepth[a][1]);
         }
       }
@@ -178,7 +179,7 @@ function drawChart2() {
       // If bid is more than or equal to current value minus price add to bidatprice
       if ( (parseFloat(biddepth[b][0]) / 0.001) >= x ){
         bidatprice += Number(biddepth[b][1]);
-        if ( (parseFloat(biddepth[b][0]) / 0.001) <= (x + STEP )){
+        if ( (parseFloat(biddepth[b][0]) / 0.001) < (x + STEP )){
           bidinprice += Number(biddepth[b][1]);
         }
       }
@@ -189,7 +190,7 @@ function drawChart2() {
   
   
   biddata.unshift(["Price", "Agg. Bids", "Agg. Asks", "Bids@" , "Asks@"]);
-  //console.log(biddata);
+  console.log(biddata);
 
   
   
