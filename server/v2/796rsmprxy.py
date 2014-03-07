@@ -29,8 +29,8 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    print("In Main")
-    print(tickerdata)
-    print(RSMgetJSString(tickerdata, "TickerData"))
-
+    PriceByDay = RSMgetPriceByDay(tradesdata, tickerdata)
+    
+    
+       
 main()

@@ -6,5 +6,5 @@
 # ["Day", "AvgPrice" ]
 
 def RSMgetAvgPriceByDay(tradesdata, tickerdata):
-  
-  return
+
+  return "Test"
