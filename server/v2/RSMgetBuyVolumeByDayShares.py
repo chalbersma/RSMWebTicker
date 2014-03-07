@@ -5,6 +5,6 @@
 # BuyVolumeByDayShares
 # ["Day", "BuyVolumeByDayShares"]
 
-def getBuyVolumeByDayShares(tradesdata, tickerdata):
+def RSMgetBuyVolumeByDayShares(tradesdata, tickerdata):
   
   return

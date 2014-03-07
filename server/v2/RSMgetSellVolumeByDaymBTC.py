@@ -5,6 +5,6 @@
 # SellVolumeByDaymBTC
 # ["Day", "SellValueinmBTC"]
 
-def getSellVolumeByDaymBTC(tradesdata, tickerdata):
+def RSMgetSellVolumeByDaymBTC(tradesdata, tickerdata):
   
   return

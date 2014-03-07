@@ -5,6 +5,6 @@
 # BuyVolumeByDaymBTC
 # ["Day", "BuyValueinmBTC"]
 
-def getBuyVolumeByDaymBTC(tradesdata, tickerdata):
+def RSMgetBuyVolumeByDaymBTC(tradesdata, tickerdata):
   
   return

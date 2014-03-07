@@ -5,6 +5,6 @@
 # PriceByDay
 # ["Day", "AvgPrice" ]
 
-def getAvgPriceByDay(tradesdata, tickerdata):
+def RSMgetAvgPriceByDay(tradesdata, tickerdata):
   
   return

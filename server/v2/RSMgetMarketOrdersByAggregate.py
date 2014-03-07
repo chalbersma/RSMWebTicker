@@ -5,6 +5,6 @@
 # MarketOrdersByAggegate
 # ["LowOfInterval", "AskVolumeinShares", ""BuyVolumeinShares", "AskVolumeinmBTC", "BuyVolumeinmBTC"]
 
-def getMarketOrdersByAggegate(depthsdata):
+def RSMgetMarketOrdersByAggegate(depthsdata):
   
   return

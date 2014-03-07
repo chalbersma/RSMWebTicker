@@ -5,6 +5,6 @@
 # PriceByDay
 # ["Day", "Lowest", "First", "Last", "High" ]
 
-def getPriceByDay(tradesdata, tickerdata):
+def RSMgetPriceByDay(tradesdata, tickerdata):
   
   return
