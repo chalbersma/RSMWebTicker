@@ -4,6 +4,8 @@
 # Includes a function that grabs the latest data and converts it to a
 # json object for processing.
 
+import json
+import urllib.request
 
 def RSMgetjson():
   # Ticker URL

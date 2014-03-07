@@ -19,9 +19,18 @@ from RSMgetCurrentTicker import RSMgetCurrentTicker
 from RSMgetMarketOrdersByInterval import RSMgetMarketOrdersByInterval
 from RSMgetMarketOrdersByAggregate import RSMgetMarketOrdersByAggegate
 
+# Include Javascript Function String Function
+from RSMgetJSString import RSMgetJSString
+
 
 def main() :
     marketdata = RSMgetjson()
     tickerdata = marketdata[0]
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
+    
+    print("In Main")
+    print(tickerdata)
+    print(RSMgetJSString(tickerdata, "TickerData"))
+
+main()
