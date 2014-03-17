@@ -8,3 +8,5 @@ server/v2/__pycache__/RSMgetPriceByDay.cpython-33.pyc
 server/v2/__pycache__/RSMgetAvgPriceByDay.cpython-33.pyc
 server/v2/__pycache__/RSMgetPriceByDay.cpython-33.pyc
 server/v2/__pycache__/RSMgetBuyVolumeByDaymBTC.cpython-33.pyc
+server/v2/__pycache__/RSMgetBuyVolumeByDaymBTC.cpython-33.pyc
+server/v2/__pycache__/RSMgetPriceByDay.cpython-33.pyc
