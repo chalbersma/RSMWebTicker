@@ -71,4 +71,4 @@ def RSMgetPriceByDay(tradesdata, tickerdata):
     thisday = [ x.strftime(fmt), round(float(dayLowest),6), round(float(dayFirstPrice),6), round(float(dayLastPrice),6), round(float(dayHighest),6) ]
     datatoreturn.append(thisday)
   print(datatoreturn)
-  return
+  return datatoreturn

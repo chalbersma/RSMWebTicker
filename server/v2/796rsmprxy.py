@@ -6,6 +6,10 @@ import json
 import urllib.request
 import logging
 import sys
+from datetime import time
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
 
 # Include SubFunctions
 from RSMgetjson import RSMgetjson
@@ -29,7 +33,7 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    PriceByDay = RSMgetPriceByDay(tradesdata, tickerdata)
+    AvgPriceByDay = RSMgetBuyVolumeByDayShares(tradesdata, tickerdata)
     
     
        
