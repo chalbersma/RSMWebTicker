@@ -55,7 +55,23 @@ def RSMgetPriceByDay(tradesdata, tickerdata):
       
       ## See if this trade is in the required date
       if (x == tradeTxDay):
+        print (i)
         ## Trade is in Date
         if (firsTransaction == True):
+          ## First transaction of the Day
+          dayFirstPrice = tradeAmount
+          dayHighest = tradeAmount
+          dayLowest = tradeAmount
+          firstTransaction = False
+        ## Trade is not first transaction
+        dayLastPrice = tradeAmount
+        ## Check Highest and Lowest & Set if appropriate
+        if ( tradeAmount > dayHighest ):
+          dayHighest = tradeAmount
+        if ( tradeAmount < dayLowest ):
+          dayLowest = tradeAmount
+          
+    thisday = [ x, dayLowest, dayFristPrice, dayLastPrice, dayHighest ]
+    print(thisday)
       
   return
