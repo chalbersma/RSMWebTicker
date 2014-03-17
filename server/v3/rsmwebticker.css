@@ -1,0 +1,28 @@
+/* Tickbox Style for Main Box */
+
+#tickbox { 	
+border: 1px solid #000; 
+width:350px;
+font-family: Arial;
+}
+
+#tickbox img{
+float: left;
+}
+			
+#tickbox ul {
+list-style-type: none;
+margin: 0; 
+padding: 0;
+padding-left: 100px;
+}
+
+#tickbox ul li {
+display: block;
+border-bottom: 1px solid #ccc;
+text-align: center;
+}
+
+#tickbox ul li img{
+float: none;
+}

@@ -27,18 +27,16 @@ def RSMgetPriceByDay(tradesdata, tickerdata):
   # Date Iterator
   x = OLDESTDATE
   while x <= TODAY :
-    print("Date I'm On",x)
     # Add a Day to the Date Iterator
     x += ONEDAY
     # First Transaction
     firstTransaction = True;
-    dayLowest
-    dayHighest
-    dayFirstPrice
-    dayLastPrice
-    dayFirstTime
-    dayLastTime
-    
+    dayLowest = 0.0
+    dayHighest = 0.0
+    dayFirstPrice = 0.0
+    dayLastPrice = 0.0
+
+
     for i in tradesdata : 
       # Pull Data From This trade
       tradeType = i['type']
@@ -51,27 +49,26 @@ def RSMgetPriceByDay(tradesdata, tickerdata):
       # Pull time
       tradeTxTime = tradeTxDateTime.time()
       # All Calulated Prices as mBTC
-      tradePrice = float(i['price']) / 0.001
+      tradePrice = float(float(i['price']) / 0.001)
       
       ## See if this trade is in the required date
       if (x == tradeTxDay):
-        print (i)
         ## Trade is in Date
-        if (firsTransaction == True):
+        if (firstTransaction == True):
           ## First transaction of the Day
-          dayFirstPrice = tradeAmount
-          dayHighest = tradeAmount
-          dayLowest = tradeAmount
+          dayFirstPrice = tradePrice
+          dayHighest = tradePrice
+          dayLowest = tradePrice
           firstTransaction = False
         ## Trade is not first transaction
-        dayLastPrice = tradeAmount
+        dayLastPrice = tradePrice
         ## Check Highest and Lowest & Set if appropriate
-        if ( tradeAmount > dayHighest ):
-          dayHighest = tradeAmount
-        if ( tradeAmount < dayLowest ):
-          dayLowest = tradeAmount
+        if ( float(tradePrice) > float(dayHighest) ):
+          dayHighest = tradePrice
+        if ( tradePrice < float(dayLowest) ):
+          dayLowest = tradePrice
           
-    thisday = [ x, dayLowest, dayFristPrice, dayLastPrice, dayHighest ]
-    print(thisday)
-      
+    thisday = [ x.strftime(fmt), round(float(dayLowest),6), round(float(dayFirstPrice),6), round(float(dayLastPrice),6), round(float(dayHighest),6) ]
+    datatoreturn.append(thisday)
+  print(datatoreturn)
   return
