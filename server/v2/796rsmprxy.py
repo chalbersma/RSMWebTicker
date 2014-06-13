@@ -33,8 +33,9 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    AvgPriceByDay = RSMgetBuyVolumeByDayShares(tradesdata, tickerdata)
+    CurrentTicker = RSMgetCurrentTicker(tickerdata, tradesdata)
     
+    print(CurrentTicker)
     
        
 main()
