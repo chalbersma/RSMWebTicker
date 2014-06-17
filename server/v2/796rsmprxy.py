@@ -33,9 +33,10 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    CurrentTicker = RSMgetCurrentTicker(tickerdata, tradesdata)
     
-    print(CurrentTicker)
+    Aggregates = RSMgetMarketOrdersByAggegate(depthsdata, tickerdata)
+    
+    print(Aggregates);
     
        
 main()
