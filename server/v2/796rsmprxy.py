@@ -33,10 +33,10 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
+    # Interval Not finished
+    Interval = RSMgetMarketOrdersByInterval(depthsdata, tickerdata)
     
-    Aggregates = RSMgetMarketOrdersByAggegate(depthsdata, tickerdata)
-    
-    print(Aggregates);
+    print(Interval);
     
        
 main()
