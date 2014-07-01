@@ -81,6 +81,7 @@ def RSMgetMarketOrdersByInterval(depthsdata, tickerdata):
     #print([Extreme, RaskVolShares, RbidVolShares, RaskVol, RbidVol])
     
     # Add Data to return bit
+    
     ToReturn.append([Extreme, RaskVolShares, RbidVolShares, RaskVol, RbidVol])
 
   
