@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# 796 Testing
+
 # Includes Here
 
 import json
@@ -33,7 +35,15 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    # Interval Not finished
-    print(" Use Testing For Now" );
-       
-main()
+    # Get all 
+    gotPriceByDay = RSMgetPriceByDay(tradesdata, tickerdata)
+    gotAvgPriceByDay  = RSMgetAvgPriceByDay(tradesdata, tickerdata)
+    gotBuyVolumeByDaymBTC  = RSMgetBuyVolumeByDaymBTC(tradesdata, tickerdata)
+    gotBuyVolumeByDayShares = RSMgetBuyVolumeByDayShares(tradesdata, tickerdata)
+    gotSellVolumeByDaymBTC = RSMgetSellVolumeByDaymBTC(tradesdata, tickerdata)
+    gotSellVolumeByDayShares = RSMgetSellVolumeByDayShares(tradesdata, tickerdata)
+    gotCurrentTicker = RSMgetCurrentTicker(tickerdata, tradesdata)
+    gotMarketOrdersByInterval = RSMgetMarketOrdersByInterval(depthsdata, tickerdata)
+    gotMarketOrdersByAggregate = RSMgetMarketOrdersByAggegate(depthsdata, tickerdata)
+    
+    return

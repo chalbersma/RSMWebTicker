@@ -48,13 +48,10 @@ def RSMgetBuyVolumeByDayShares(tradesdata, tickerdata):
       
       ## See if this trade is in the required date
       if (x == tradeTxDay):
-        ## Trade is in Date
-        if (firstTransaction == True):
-          if (tradeType == "buy"):
-            ## First transaction of the Day
-            volumemBTC += float(tradeAmount)
+        if (tradeType == "buy"):
+          ## First transaction of the Day
+          volumemBTC += float(tradeAmount)
           
     thisday = [ x.strftime(fmt), int(round(float(volumemBTC), 0)) ]
     datatoreturn.append(thisday)
-  print(datatoreturn)
-  return
+  return datatoreturn
