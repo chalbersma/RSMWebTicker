@@ -34,9 +34,9 @@ def main() :
     depthsdata = marketdata[2]
     
     # Interval Not finished
-    Interval = RSMgetMarketOrdersByInterval(depthsdata, tickerdata)
+    PriceByDay = RSMgetPriceByDay(tradesdata, tickerdata)
     
-    print(Interval);
+    print(PriceByDay);
     
        
 main()

@@ -60,15 +60,16 @@ def RSMgetPriceByDay(tradesdata, tickerdata):
           dayHighest = tradePrice
           dayLowest = tradePrice
           firstTransaction = False
-        ## Trade is not first transaction
+        ## This transaction is the Newest price for this day Always
         dayLastPrice = tradePrice
         ## Check Highest and Lowest & Set if appropriate
         if ( float(tradePrice) > float(dayHighest) ):
           dayHighest = tradePrice
         if ( tradePrice < float(dayLowest) ):
           dayLowest = tradePrice
-          
+    
     thisday = [ x.strftime(fmt), round(float(dayLowest),6), round(float(dayFirstPrice),6), round(float(dayLastPrice),6), round(float(dayHighest),6) ]
     datatoreturn.append(thisday)
+  print ("Data to Return")
   print(datatoreturn)
   return datatoreturn
