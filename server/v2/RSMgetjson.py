@@ -8,29 +8,19 @@ import json
 import urllib.request
 
 def RSMgetjson():
-  # Ticker URL
-  tickurl = "http://api.796.com/v3/stock/ticker.html?type=rsm"
+ 
+  url = [ "http://api.796.com/v3/stock/ticker.html?type=rsm", "http://api.796.com/v3/stock/trades.html?type=rsm",  "http://api.796.com/v3/stock/depth.html?type=rsm" ]
+  xjson = []
   
-  # Market Trades URL
-  tradeurl = "http://api.796.com/v3/stock/trades.html?type=rsm"
-  
-  # Depth URL
-  depthurl = "http://api.796.com/v3/stock/depth.html?type=rsm"
-
-  ## Grab info For Ticker
-  tickrequest = urllib.request.Request(tickurl)
-  tickresponse = urllib.request.urlopen(tickrequest)
-  tickxjson = json.loads((tickresponse.read().decode('utf-8')))
-
-  ## Grab Info For Trades
-  traderequest = urllib.request.Request(tradeurl)
-  traderesponse = urllib.request.urlopen(traderequest)
-  tradexjson = json.loads((traderesponse.read().decode('utf-8')))
-
-  ## Grab Info For Depth
-  depthrequest = urllib.request.Request(depthurl)
-  depthresponse = urllib.request.urlopen(depthrequest)
-  depthxjson = json.loads((depthresponse.read().decode('utf-8')))
+  for i in range(3) :
+    xjson[i] = unitGetJson(url[i])
   
   ## return items in array
   return [tickxjson, tradexjson, depthxjson]
+  
+def unitGetJson(thisurl):
+  thisrequest = urllib.request.Request(thisurl)
+  thisresponse = urllib.request.urlopen(thisrequest)
+  thisxjson = json.loads((thisresponse.read().decode('utf-8')))
+  
+  return thisxjson

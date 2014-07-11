@@ -54,5 +54,4 @@ def RSMgetSellVolumeByDaymBTC(tradesdata, tickerdata):
           
     thisday = [ x.strftime(fmt), round(float(volumemBTC), 6) ]
     datatoreturn.append(thisday)
-  print(datatoreturn)
   return datatoreturn

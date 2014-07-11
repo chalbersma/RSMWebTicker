@@ -68,5 +68,4 @@ def RSMgetAvgPriceByDay(tradesdata, tickerdata):
 
     thisday = [ x.strftime(fmt), round(float(wdavg), 6)]
     datatoreturn.append(thisday)
-  print(datatoreturn)
   return datatoreturn
