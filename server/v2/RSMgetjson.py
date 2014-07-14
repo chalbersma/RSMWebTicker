@@ -12,11 +12,11 @@ def RSMgetjson():
   url = [ "http://api.796.com/v3/stock/ticker.html?type=rsm", "http://api.796.com/v3/stock/trades.html?type=rsm",  "http://api.796.com/v3/stock/depth.html?type=rsm" ]
   xjson = []
   
-  for i in range(3) :
-    xjson[i] = unitGetJson(url[i])
+  for i in url :
+    xjson.append(unitGetJson(i))    
   
   ## return items in array
-  return [tickxjson, tradexjson, depthxjson]
+  return xjson
   
 def unitGetJson(thisurl):
   thisrequest = urllib.request.Request(thisurl)
