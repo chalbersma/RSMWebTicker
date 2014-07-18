@@ -52,7 +52,7 @@ def RSMgetMarketOrdersByInterval(depthsdata, tickerdata):
       SExtreme = SLastPrice
     
     # Print Range
-    print ("Range " + str(i) + " : " + str(SFLastPrice) + " to " + str(SthisPriceInterval))
+    #print ("Range " + str(i) + " : " + str(SFLastPrice) + " to " + str(SthisPriceInterval))
     for a in depthsdata['asks']:
       # Find Matching Asks & Tally
       # Find Price in Satoshis

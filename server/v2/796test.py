@@ -42,8 +42,7 @@ def main() :
     tradesdata = marketdata[1]
     depthsdata = marketdata[2]
     
-    print("test of function")
-    print(marketdata)
+    #print(marketdata)
     
     print("End of Market Data Test")
     

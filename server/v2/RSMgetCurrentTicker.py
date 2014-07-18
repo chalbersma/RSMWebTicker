@@ -54,11 +54,11 @@ def RSMgetCurrentTicker(tickerdata, tradesdata):
         transactions = transactions + 1
         # Add Transaction Shares
         volumeShares = volumeShares + tradeAmount
-        print (volumeShares)
+        #print (volumeShares)
         # Add Volume Run
         volumeMBTCRun = volumeMBTCRun + (tradeAmount * tradePrice)
-        print ("Volume volume MBTCRUn: + ")
-        print (volumeMBTCRun)
+        #print ("Volume volume MBTCRUn: + ")
+        #print (volumeMBTCRun)
         # Check for New High Price & Low Price
         if ( tradePrice > highPrice ) : 
           highPrice = tradePrice

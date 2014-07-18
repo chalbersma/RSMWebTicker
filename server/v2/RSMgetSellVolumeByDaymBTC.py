@@ -21,8 +21,8 @@ def RSMgetSellVolumeByDaymBTC(tradesdata, tickerdata):
   TODAY = date.today()
   # Make a TimeDelta of One Day
   ONEDAY = timedelta(days=1)
-  print("Today" , TODAY)
-  print("OldestDate", OLDESTDATE)
+  #print("Today" , TODAY)
+  #print("OldestDate", OLDESTDATE)
   # Date Iterator
   x = OLDESTDATE
   while x <= TODAY :
