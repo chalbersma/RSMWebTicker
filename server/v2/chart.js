@@ -2,6 +2,7 @@
 
 // Include Needed Files
 
+// Change This to Server that hosts js stuff
 HOSTSTRING="http://localhost:8080/"
 
 function populate(){
