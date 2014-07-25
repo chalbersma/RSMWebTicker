@@ -12,3 +12,12 @@ server/v2/__pycache__/RSMgetBuyVolumeByDaymBTC.cpython-33.pyc
 server/v2/__pycache__/RSMgetPriceByDay.cpython-33.pyc
 server/v2/__pycache__/RSMgetBuyVolumeByDaymBTC.cpython-33.pyc
 server/v2/__pycache__/RSMgetPriceByDay.cpython-33.pyc
+server/v2/js/AvgPriceByDay.js
+server/v2/js/BuyVolumeByDaymBTC.js
+server/v2/js/BuyVolumeByDayShares.js
+server/v2/js/CurrentTicker.js
+server/v2/js/MarketOrdersByAggregate.js
+server/v2/js/MarketOrdersByInterval.js
+server/v2/js/PriceByDay.js
+server/v2/js/SellVolumeByDaymBTC.js
+server/v2/js/SellVolumeByDayShares.js

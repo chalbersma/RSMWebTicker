@@ -25,6 +25,7 @@ def RSMgetAvgPriceByDay(tradesdata, tickerdata):
   #print("OldestDate", OLDESTDATE)
   # Date Iterator
   x = OLDESTDATE
+  wdavg=0
   while x <= TODAY :
     # Add a Day to the Date Iterator
     x += ONEDAY
