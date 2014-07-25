@@ -16,5 +16,7 @@ function populate(){
     console.log("Successfully Loaded Ticker.js");
   });
 
+  // Actual Write Ticker
+  writeTicker();
 
 }
