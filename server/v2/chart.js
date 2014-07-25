@@ -13,7 +13,7 @@ function populate(){
 
   // Write Ticker
   $.getScript('v2/js/Ticker.js', function(){
-    console.log("Sucessfully Loaded Google Vizualization");
+    console.log("Successfully Loaded Ticker.js");
   });
 
 
