@@ -3,7 +3,7 @@
 // Include Needed Files
 
 // Change This to Server that hosts js stuff
-HOSTSTRING="http://localhost:8080/"
+HOSTSTRING="http://localhost:8080/RSMWebTicker/server/"
 
 function populate(){
   // Google Scirpts
@@ -12,11 +12,21 @@ function populate(){
   });
 
   // Write Ticker
-  $.getScript('v2/js/Ticker.js', function(){
-    console.log("Successfully Loaded Ticker.js");
-  });
-
-  // Actual Write Ticker
-  writeTicker();
-
+  $.getScript(HOSTSTRING+'v2/js/Ticker.js', function(){
+    alert( "success" );
+  })
+    .done(function() {
+      console.log("Successfully Loaded Ticker.js");
+    })
+    .fail(function() {
+      alert( "error")
+			if (arguments[0].readyState==0){
+				alert ( "Failure to Load")
+			} else { 
+				alert (arguments[2].toString());
+			}	
+    })
+    .always(function() {
+      alert( "finished" )
+    });
 }
