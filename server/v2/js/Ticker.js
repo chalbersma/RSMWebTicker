@@ -1,7 +1,7 @@
 /* Ticker.js */
 
 function writeCurrentTicker(lastCurrent){
-	console.log(lastCurrent);
+	//console.log(lastCurrent);
 	// Convert from String to JSON
 	lastCurrentActual = jQuery.parseJSON(lastCurrent);
 	// Hardcoded
@@ -12,13 +12,13 @@ function writeCurrentTicker(lastCurrent){
 		HTMLBITS[String(TICKERDESCRIPTION[i])] = "<tr><td> " + String(TICKERDESCRIPTION[i]) + " </td><td> " + String(lastCurrentActual[i]) + " </td></tr> " ;
 	}
 	
-	console.log(String(HTMLBITS));
-	console.log("Writing to div tickbox")
+	//console.log(String(HTMLBITS));
+	//console.log("Writing to div tickbox")
 	htmlToPlace = "<table>";
 	for (var j =0 ; j < TICKERDESCRIPTION.length ; j++){
-		console.log(j);
+		//console.log(j);
 		htmlToPlace += HTMLBITS[String(TICKERDESCRIPTION[j])];
-		console.log(htmlToPlace)
+		//console.log(htmlToPlace)
 	}
 	htmlToPlace += "</table>";
 	document.getElementById('tickbox').innerHTML = htmlToPlace;

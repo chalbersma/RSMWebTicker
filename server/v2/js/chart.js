@@ -4,6 +4,10 @@
 
 // Change This to Server that hosts js stuff
 HOSTSTRING="http://localhost:8080/RSMWebTicker/server/"
+CurrentGraph=0
+MAXGRAPH=1
+
+
 function dummy(){
 	// Dummy Function
 	return
@@ -13,6 +17,7 @@ function populate(){
   // Google Scirpts
   $.getScript('http://www.google.com/jsapi', function(){
     console.log("Sucessfully Loaded Google Vizualization");
+		drawgraph(0);
   });
 
   // Write Ticker
@@ -40,5 +45,30 @@ function populate(){
 	LoadJSFile(HOSTSTRING, "v2/js/CurrentTicker.js", "CurrentTicker.js", function(){
 		LoadJSFile(HOSTSTRING, "v2/js/Ticker.js", "Ticker.js", function(){ writeCurrentTicker(CurrentTicker()) })
 	});
+}
+
+function nextGraph(){
+	if (CurrentGraph != MAXGRAPH){
+		drawgraph(CurrentGraph+1);
+		CurrentGraph+=1;
+	}else{
+		drawgraph(0)
+		CurrentGraph=0
+	}
+}
+
+
+function prevGraph(){
+	if (CurrentGraph != 0){
+		drawgraph(CurrentGraph-1);
+		CurrentGraph -= 1;
+	}else{
+		drawgraph(MAXGRAPH)
+		CurrentGraph=MAXGRAPH
+	}	
+}
+
+function drawgraph(which){
+	console.log("Drawing Graph "+which);
 
 }
