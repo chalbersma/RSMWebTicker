@@ -4,14 +4,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.js" ></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="v2/chart.js"></script>
+    <script type="text/javascript" src="v2/js/chart.js"></script>
 		<script type="text/javascript" src="v2/js/LoadFile.js"></script>
   </head>
 <body onLoad='populate();'>
   <p> This is a test Page for the RSM Widget v2. New versions of this widget may (and hopefully) will come out in the future. </p>
     <div id="tickbox">
-      
     </div>
+		<div id="graphcontrol">
+			<ul>
+				<li><a href="#" onclick='prevGraph();' id="Prev"> Previous </a></li>
+				<li><a href="#" onclick='nextGraph();' id="Next"> Next     </a></li>
+			</ul>
+		</div>
+		<div id="graph">
+		</div>
   </p>
 
 </body>
