@@ -15,7 +15,7 @@ chartInfo = [
 										var pricebydaydata = AvgPriceByDay();
 										console.log("Price By Day Data:  "+pricebydaydata);
 										return pricebydaydata;
-									}
+									},
 								options: 
 									{ 
 										title: "Average Price By Day",
@@ -53,11 +53,12 @@ chartInfo = [
 												// Should now have a combine 
 											}
 											// Draw Chart
-											var chart = new google.visualization.ComboChart(document.getElementById('graph');
-											chart.draw(pricedatabyday, self["options"]);
+											//var chart = new google.visualization.ComboChart(document.getElementById('graph'));
+											//chart.draw(pricedatabyday, self["options"]);
 											// Price Data create Second Graph
 											return pricedatabyday;
-										},
+										}),
+									}),
 									options: {
 											title: "Price and Volume By Day",
 											isStacked: true,
