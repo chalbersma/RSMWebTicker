@@ -69,6 +69,10 @@ function prevGraph(){
 }
 
 function drawgraph(which){
+	google.load('visualization', '1', {packages: ['corechart']});
 	console.log("Drawing Graph "+which);
-
+	LoadJSFile(HOSTSTRING, "v2/js/DrawCharts.js", "DrawCharts.js", function(){
+		chartInfo[which].predata;
+		chartInfo[which].data;
+	});
 }
