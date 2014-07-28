@@ -6,7 +6,7 @@
 // Change This to Server that hosts js stuff
 HOSTSTRING="http://localhost:8080/RSMWebTicker/server/"
 CurrentGraph=0
-MAXGRAPH=1
+MAXGRAPH=2
 google.load('visualization', '1', {packages: ['corechart']});
 
 function dummy(){

@@ -69,5 +69,64 @@ chartInfo = [{
 											aggregationTarget: 'category',
 										height : 300
 									}
+								},{
+								name: "Active Bids by Interval",
+								predata: function(){
+										MarketOrdersByInterval = null;
+									},
+								data: function(){
+										LoadJSFile(HOSTSTRING, "v2/js/MarketOrdersByInterval.js", "MarketOrdersByInterval.js", function(){
+											console.log("Parsing The Data");
+											var thedata = jQuery.parseJSON(MarketOrdersByInterval());
+											console.log("Shifting the Data");
+											thedata.unshift(["Low of Interval", "Ask (Shares)", "Buy (Shares)", "Ask (mBTC)", "Buy (mBTC)"]);
+											console.log("Google the data");
+											var googledata = google.visualization.arrayToDataTable(thedata);
+											var chart = new google.visualization.ComboChart(document.getElementById('graph'));
+											chart.draw(googledata, self["options"]);
+										});
+									},
+								options: {
+										title: "Active Bids",
+										series: {
+											1: {
+												type: "bars",
+												targetAxisIndex: 0
+											},
+											2: {
+												type: "bars",
+												targetAxisIndex: 1
+											},
+											3: {
+												type: "bars",
+												targetAxisIndex: 2
+											},
+											4: {
+												type: "bars",
+												targetAxisIndex: 3
+											}
+										},
+										vAxes: {
+											0: {
+												title: "Buy Orders (Shares)"
+											},
+											1: {
+												title: "Buy Orders (mBTC)"
+											},
+											2: {
+												title: "Sell Orders (Shares)"
+											},
+											3: {
+												title: "Sell Orders (mBTC)"
+											}
+										},
+										hAxis: {
+											0: {
+												title: "Low of Interval"
+											}
+										},
+										height : 300,
+										seriesType: "bars"
+									}
 								}
 							];
