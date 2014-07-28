@@ -16,7 +16,7 @@ chartInfo = [{
 									pricebydaydata.unshift(["Day", "Price"]);
 									var googledata = google.visualization.arrayToDataTable(pricebydaydata);
 									var chart = new google.visualization.ComboChart(document.getElementById('graph'));
-									chart.draw(googledata, self["options"]);
+									chart.draw(googledata, options);
 									return pricebydaydata;
 								});},
 							options: 
@@ -57,7 +57,7 @@ chartInfo = [{
 										console.log("This must be an Array to Work: "+pricedatabyday);	
 										var googledata = google.visualization.arrayToDataTable(pricedatabyday);
 										var chart = new google.visualization.ComboChart(document.getElementById('graph'));
-										chart.draw(googledata, self["options"]);
+										chart.draw(googledata, options);
 										
 										// Provide Return Data
 										return pricedatabyday;
