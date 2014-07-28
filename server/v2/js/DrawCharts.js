@@ -50,13 +50,16 @@ chartInfo = [{
 									return LoadJSFile(HOSTSTRING, "v2/js/PriceByDay.js", "PriceByDay.js", function(){
 										var pricedatabyday = jQuery.parseJSON(PriceByDay());
 										for (var i = 0 ; i < avgpricebydaydata.length ; i++){
-											pricedatabyday[i][5] = avgpricebydaydata[i][1];
+											avgpricebydaydata[i][2] = pricedatabyday[i][1];
+											avgpricebydaydata[i][3] = pricedatabyday[i][2];
+											avgpricebydaydata[i][4] = pricedatabyday[i][3];
+											avgpricebydaydata[i][5] = pricedatabyday[i][4];
 										}
 										// Draw Chart
-										pricedatabyday.unshift(["Day", "Lowest", "First", "Last", "High", "Average"]);
-										console.log("This must be an Array to Work: "+pricedatabyday);	
-										var googledata = google.visualization.arrayToDataTable(pricedatabyday);
-										var chart = new google.visualization.Candlestick(document.getElementById('graph'));
+										avgpricebydaydata.unshift(["Day", "Average", "Lowest", "First", "Last", "High"]);
+										console.log("This must be an Array to Work: "+avgpricebydaydata);	
+										var googledata = google.visualization.arrayToDataTable(avgpricebydaydata);
+										var chart = new google.visualization.CandlestickChart(document.getElementById('graph'));
 										chart.draw(googledata, options);
 										
 										// Provide Return Data
@@ -64,9 +67,9 @@ chartInfo = [{
 									});
 								});},
 								options: {
-                  title: 'Recent RSM Price',
+                  title: 'RSM Price',
                   series: { 
-                    5: {
+                    0: {
                       type: "line"
                     }
                   },
