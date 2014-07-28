@@ -96,7 +96,8 @@ chartInfo = [{
                   isStacked: true,
                   height: 300,
                   aggregationTarget: 'series'
-                },{
+                }
+              },{
 								name: "Active Bids by Interval (Shares)",
 								predata: function(){
 										MarketOrdersByInterval = null;
