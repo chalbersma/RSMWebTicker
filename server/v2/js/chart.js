@@ -1,12 +1,13 @@
 /* Chart.js  Main js File for v2 of RSMWebTicker */
 
+
 // Include Needed Files
 
 // Change This to Server that hosts js stuff
 HOSTSTRING="http://localhost:8080/RSMWebTicker/server/"
 CurrentGraph=0
 MAXGRAPH=1
-
+google.load('visualization', '1', {packages: ['corechart']});
 
 function dummy(){
 	// Dummy Function
@@ -69,10 +70,12 @@ function prevGraph(){
 }
 
 function drawgraph(which){
-	google.load('visualization', '1', {packages: ['corechart']});
 	console.log("Drawing Graph "+which);
 	LoadJSFile(HOSTSTRING, "v2/js/DrawCharts.js", "DrawCharts.js", function(){
-		chartInfo[which].predata;
-		chartInfo[which].data;
+		console.log("Running Draw Chart Pre Data");
+		chartInfo[which].predata();
+		console.log("Running Draw Chart Data");
+		chartInfo[which].data();
+		console.log("Ran Chart Data");
 	});
 }
