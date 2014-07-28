@@ -56,7 +56,7 @@ chartInfo = [{
 										pricedatabyday.unshift(["Day", "Lowest", "First", "Last", "High", "Average"]);
 										console.log("This must be an Array to Work: "+pricedatabyday);	
 										var googledata = google.visualization.arrayToDataTable(pricedatabyday);
-										var chart = new google.visualization.ComboChart(document.getElementById('graph'));
+										var chart = new google.visualization.Candlestick(document.getElementById('graph'));
 										chart.draw(googledata, options);
 										
 										// Provide Return Data
@@ -64,12 +64,39 @@ chartInfo = [{
 									});
 								});},
 								options: {
-										title: "Price and Volume By Day",
-										isStacked: true,
-											aggregationTarget: 'category',
-										height : 300
-									}
-								},{
+                  title: 'Recent RSM Price',
+                  series: { 
+                    5: {
+                      type: "line"
+                    },
+                  },
+                  vAxes: { 
+                    0: { 
+                      title: "Price (mBTC)"
+                    }
+                  },
+                  hAxis: {
+                    0: {
+                      title: "Date"
+                    }
+                  },
+                  candlestick: {
+                    fallingColor: {
+                      fill : "red",
+                      stroke : "blue"
+                    },
+                    risingColor : {
+                      fill : "green",
+                      stroke: "blue"
+                    }
+                  },
+                  animation : {
+                    easing : "in"
+                  },
+                  isStacked: true,
+                  height: 300,
+                  aggregationTarget: 'series'
+                },{
 								name: "Active Bids by Interval (Shares)",
 								predata: function(){
 										MarketOrdersByInterval = null;
