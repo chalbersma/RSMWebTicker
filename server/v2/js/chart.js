@@ -75,7 +75,7 @@ function drawgraph(which){
 		console.log("Running Draw Chart Pre Data");
 		chartInfo[which].predata();
 		console.log("Running Draw Chart Data");
-		chartInfo[which].data();
+		chartInfo[which].data(chartInfo[which]["options"]);
 		console.log("Ran Chart Data");
 	});
 }

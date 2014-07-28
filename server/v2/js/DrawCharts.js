@@ -9,7 +9,7 @@ chartInfo = [{
 							predata: function(){
 									AvgPriceByDay = null;
 								},
-							data: function(){LoadJSFile(HOSTSTRING, "v2/js/AvgPriceByDay.js", "AvgPriceByDay", function(){
+							data: function(options){LoadJSFile(HOSTSTRING, "v2/js/AvgPriceByDay.js", "AvgPriceByDay", function(){
 									var pricebydaydata = jQuery.parseJSON(AvgPriceByDay());
 									// Draw Google Charts
 									// Add Title
@@ -45,7 +45,7 @@ chartInfo = [{
 										AvgPriceByDay = null;
 										PriceByDay = null;
 									},
-								data: function(){LoadJSFile(HOSTSTRING, "v2/js/AvgPriceByDay.js", "AvgPriceByDay.js", function(){
+								data: function(options){LoadJSFile(HOSTSTRING, "v2/js/AvgPriceByDay.js", "AvgPriceByDay.js", function(){
 									var avgpricebydaydata = jQuery.parseJSON(AvgPriceByDay());
 									return LoadJSFile(HOSTSTRING, "v2/js/PriceByDay.js", "PriceByDay.js", function(){
 										var pricedatabyday = jQuery.parseJSON(PriceByDay());
@@ -70,63 +70,48 @@ chartInfo = [{
 										height : 300
 									}
 								},{
-								name: "Active Bids by Interval",
+								name: "Active Bids by Interval (Shares)",
 								predata: function(){
 										MarketOrdersByInterval = null;
 									},
-								data: function(){
+								data: function(options){
 										LoadJSFile(HOSTSTRING, "v2/js/MarketOrdersByInterval.js", "MarketOrdersByInterval.js", function(){
 											console.log("Parsing The Data");
 											var thedata = jQuery.parseJSON(MarketOrdersByInterval());
+											console.log(thedata);
+											var thegooddata = new Array();
+											for (var i = 0; i < thedata.length; i++){
+												thegooddata[i] = [ thedata[i][0], thedata[i][1], thedata[i][2] ];
+											}
 											console.log("Shifting the Data");
-											thedata.unshift(["Low of Interval", "Ask (Shares)", "Buy (Shares)", "Ask (mBTC)", "Buy (mBTC)"]);
+											thegooddata.unshift(["Low of Interval", "Ask (Shares)", "Buy (Shares)"]);
 											console.log("Google the data");
-											var googledata = google.visualization.arrayToDataTable(thedata);
+											var googledata = google.visualization.arrayToDataTable(thegooddata);
 											var chart = new google.visualization.ComboChart(document.getElementById('graph'));
-											chart.draw(googledata, self["options"]);
+											console.log(options);
+											chart.draw(googledata, options);
 										});
 									},
 								options: {
-										title: "Active Bids",
-										series: {
-											1: {
-												type: "bars",
-												targetAxisIndex: 0
-											},
-											2: {
-												type: "bars",
-												targetAxisIndex: 1
-											},
-											3: {
-												type: "bars",
-												targetAxisIndex: 2
-											},
-											4: {
-												type: "bars",
-												targetAxisIndex: 3
-											}
-										},
+										title: "Active Bids (Shares)",
+										height : 300,
+										seriesType: "bars",
 										vAxes: {
 											0: {
-												title: "Buy Orders (Shares)"
+												title: "Buy (Shares)",
 											},
 											1: {
-												title: "Buy Orders (mBTC)"
-											},
-											2: {
-												title: "Sell Orders (Shares)"
-											},
-											3: {
-												title: "Sell Orders (mBTC)"
+												title: "Ask (Shares)",
 											}
 										},
-										hAxis: {
+										series: {
 											0: {
-												title: "Low of Interval"
+												targetAxisIndex: 1
+											},
+											1: {
+												targetAxisIndex: 0
 											}
-										},
-										height : 300,
-										seriesType: "bars"
+										}
 									}
 								}
 							];
