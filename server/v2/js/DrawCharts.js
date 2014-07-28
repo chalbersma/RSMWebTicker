@@ -68,7 +68,7 @@ chartInfo = [{
                   series: { 
                     5: {
                       type: "line"
-                    },
+                    }
                   },
                   vAxes: { 
                     0: { 
